@@ -58,6 +58,45 @@ This flow allows efficient monitoring and error handling of logs and messages in
 
 
 
+
+
+
+I have provided the detailed table describing the use case where Power BI is connected to Azure resources, including Azure Function App, Blob Storage, Storage Queue, Azure Monitor, and Azure SQL. 
+
+Now, let's create the **Mermaid Sequence Diagram** that illustrates the flow of data from the Azure Function App to Power BI:
+
+```mermaid
+sequenceDiagram
+    participant FunctionApp1 as Azure Function App (Blob Logs)
+    participant Blob as Azure Storage Blob Container
+    participant FunctionApp2 as Azure Function App (Queue Messages)
+    participant Queue as Azure Storage Queue
+    participant Monitor as Azure Monitor
+    participant SQL as Azure SQL Database
+    participant PBI as Power BI
+    
+    FunctionApp1->>Blob: Extract number of logs created
+    Blob-->>FunctionApp1: Return logs count
+    FunctionApp1->>Monitor: Log extracted information
+    
+    FunctionApp2->>Queue: Capture messages received
+    Queue-->>FunctionApp2: Return received messages
+    FunctionApp2->>Monitor: Log messages delivered to destination
+    FunctionApp2->>Monitor: Log number of messages sent to Dead Letter Queue
+    
+    PBI->>SQL: Query logs and message data
+    SQL-->>PBI: Return logs and message statistics
+    PBI->>PBI: Visualize reports and dashboards
+```
+
+### Explanation of the Flow:
+1. **Azure Function App (Blob Logs)**: Extracts the number of logs created in the Blob Storage and logs this information to Azure Monitor.
+2. **Azure Function App (Queue Messages)**: Captures messages from the Storage Queue and logs both successful deliveries and messages sent to the Dead Letter Queue in Azure Monitor.
+3. **Power BI**: Queries Azure SQL to gather data on logs, messages received, and messages sent to the Dead Letter Queue. This data is visualized as reports and dashboards for monitoring.
+
+This setup ensures robust monitoring and real-time reporting on log creation and message delivery. Let me know if you need further details!
+
+
 # Data-Collection-Onprem-and-Azure-To-Power-Bi
 | **Azure Resource**          | **Detailed Case**                                                                                                                                                    | **Collection Logs for Power BI**                                                                                                         | **Category** | **Azure DevOps(CI/CD) with Terraform**                                                                                       | **Diagnostics Logs**                                                                                                    | **Development**                                                                                                           | **Maintenance**                                                                                                                                                     |
 |-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|--------------|-----------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
