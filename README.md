@@ -227,3 +227,102 @@ resource "azurerm_storage_account" "example" {
   resource_group_name      = "LogResourceGroup"
   location                 = "East US"
   account_tier             =
+
+
+
+
+
+### Use Case: Reporting from Azure SQL and Azure Monitor to Power BI
+
+In this use case, we want to build a reporting pipeline where **Azure SQL Database** and **Azure Monitor** are used as data sources for **Power BI**. This allows monitoring data, logs, and SQL data to be visualized and used for reporting.
+
+---
+
+### Table: Azure Resources Needed for Reporting to Power BI
+
+| **Azure Resource**          | **Detailed Case**                                                                                                             | **Purpose**                                                                                                               | **Dependent Resources**                                                                                                      | **Development Effort**                                                                                           | **Maintenance and Cost**                                                                                                  | **CI/CD Solution in Terraform**                                                                                                                                                            |
+|-----------------------------|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Azure SQL Database**       | SQL database that stores structured data to be used for reporting and analytics.                                              | Acts as the primary data source for Power BI reports.                                                                     | Azure Function App (optional, for processing), Azure Blob Storage (for backups), Azure Key Vault (for secure connection).     | Medium effort to design the schema, queries, and set up the SQL database.                                                | Moderate cost for storage, query execution, and database size. Regular maintenance for backups, tuning, and monitoring. | Terraform can provision SQL server and databases, configure firewall rules, and set up secrets in Key Vault.<br>Example: `azurerm_sql_database`                                                   |
+| **Azure Monitor**            | Monitors performance and logs from Azure services (e.g., Function Apps, SQL) and sends data to Log Analytics.                 | Captures and logs Azure resource diagnostics data for reporting and analysis.                                             | Log Analytics workspace, Azure Storage (for long-term storage), Event Hub (optional for log streaming).                       | Low development effort for setting up monitoring rules and linking to Log Analytics.                                      | Pay-as-you-go based on logs ingested and metrics captured. Maintenance needed for threshold alerts and querying.      | Terraform can configure Azure Monitor, Log Analytics workspace, and alerting mechanisms. <br>Example: `azurerm_monitor_diagnostic_setting`                                               |
+| **Log Analytics Workspace**  | Collects logs and metrics from Azure Monitor and provides a queryable data source for Power BI.                               | Stores and processes diagnostic logs, performance metrics, and custom logs from monitored services.                       | Azure Monitor (data source), Azure Storage (optional for long-term retention), Event Hub (for real-time log streaming).       | Low development effort for setting up queries in the Log Analytics workspace.                                               | Costs are incurred based on the volume of logs ingested and retention policies. Regular maintenance for log retention and query performance. | Terraform can set up the Log Analytics workspace and configure retention policies.<br>Example: `azurerm_log_analytics_workspace`                         |
+| **Power BI**                 | Visualization and reporting tool that connects to Azure SQL Database and Log Analytics to create real-time dashboards.         | Provides interactive reports and dashboards for SQL and Azure Monitor data.                                               | Azure SQL Database (for structured data), Azure Monitor/Log Analytics (for logs and performance data).                        | Low development effort for creating reports and dashboards in Power BI.                                                   | Licensing cost based on Power BI Pro or Premium.<br>Maintenance for data refresh, report optimization, and permissions.  | Power BI setup typically manual, but workspace and data source configuration can be automated via APIs.                                                                                      |
+| **Azure Storage (optional)** | Used for storing long-term logs and backups for Azure SQL or Log Analytics data.                                              | Provides long-term storage for logs and backup data.                                                                      | Azure Monitor, Log Analytics, Azure SQL (for backups).                                                                        | Low development effort for storage provisioning and retention configuration.                                               | Low cost for storage, increases with long-term retention.                                                              | Terraform provisions Azure Storage, configures containers, and links for backup or log storage.<br>Example: `azurerm_storage_account`, `azurerm_storage_blob_container` |
+
+---
+
+### Explanation of Each Resource:
+
+- **Azure SQL Database**: Stores structured data that will be used by Power BI to generate reports. This could include transactional data, processed logs, or performance metrics stored in tables.
+  
+- **Azure Monitor**: Collects and monitors metrics and logs from various Azure services (e.g., SQL, Function Apps). The logs are then sent to **Log Analytics** for querying and analysis.
+
+- **Log Analytics Workspace**: Acts as a central repository for diagnostic and performance logs. Power BI can connect to this workspace to query and visualize log data.
+
+- **Power BI**: Provides a powerful reporting and dashboarding platform. It connects to both Azure SQL and Log Analytics to create interactive reports, giving real-time insights into data and service health.
+
+- **Azure Storage (Optional)**: Used for long-term storage of log data or SQL backups. This ensures that data is available even if retention policies in Log Analytics are short.
+
+---
+
+### Mermaid Diagram: Data Flow from Azure SQL and Azure Monitor to Power BI
+
+```mermaid
+graph TD
+    A[System Integration Platform] --> B[Azure SQL Database]
+    A --> C[Azure Monitor]
+    C --> D[Log Analytics Workspace]
+    B --> E[Power BI]
+    D --> E[Power BI]
+    E --> F[Reports and Dashboards]
+    subgraph Optional Resources
+    G[Azure Storage] --> B
+    G --> D
+    end
+```
+
+### Breakdown of the Mermaid Diagram:
+
+- **System Integration Platform**: This represents the application or system that is generating logs, metrics, or data to be reported.
+  
+- **Azure SQL Database**: Stores the structured data (such as processed log information, system metrics, or transactional data). It directly connects to **Power BI** for reporting.
+  
+- **Azure Monitor**: Collects metrics and logs from various Azure resources, like SQL databases, Function Apps, or other services.
+
+- **Log Analytics Workspace**: Receives the logs and diagnostic data from **Azure Monitor**. Power BI can directly query Log Analytics for more granular insights into logs.
+
+- **Azure Storage (Optional)**: Provides long-term storage for logs or backups from SQL and Log Analytics, ensuring data is available for long-term reporting.
+
+- **Power BI**: Connects to both **Azure SQL Database** and **Log Analytics** to generate visual reports and dashboards.
+
+- **Reports and Dashboards**: Power BI provides real-time visualizations based on the data from **Azure SQL** and **Log Analytics**, giving insights into system operations, log data, and performance.
+
+---
+
+### Step-by-Step Setup for Reporting in Power BI:
+
+1. **Create Azure SQL Database**:
+   - Set up an Azure SQL Database for storing structured data (e.g., logs or metrics).
+   - Create necessary tables and populate them with relevant data.
+
+2. **Set Up Azure Monitor**:
+   - Enable diagnostic settings on Azure resources (SQL, Function Apps) to send logs and metrics to **Log Analytics**.
+   - Use **Azure Monitor** to configure alert rules and set up basic metrics for performance monitoring.
+
+3. **Configure Log Analytics Workspace**:
+   - Set up a Log Analytics Workspace to receive logs from **Azure Monitor**.
+   - Configure **Kusto queries** for querying log data in Power BI.
+
+4. **Integrate Power BI with Azure SQL and Log Analytics**:
+   - In **Power BI Desktop**, use the **Azure SQL** connector to connect to the SQL database.
+   - Use the **Azure Monitor Logs** connector in Power BI to connect to **Log Analytics Workspace**.
+   - Build reports and dashboards by combining data from both sources.
+
+5. **Optional: Configure Azure Storage for Long-Term Retention**:
+   - Set up Azure Storage for storing logs or SQL backups.
+   - Configure retention policies in **Log Analytics** and set up long-term backups for SQL data.
+
+---
+
+### Conclusion
+
+By setting up **Azure SQL Database**, **Azure Monitor**, and **Log Analytics**, you can create a robust data pipeline that feeds into **Power BI** for real-time reporting. The optional use of **Azure Storage** ensures that long-term retention of logs and backups is possible. This architecture provides a scalable and secure solution for monitoring and reporting on both structured and unstructured data in Azure.
