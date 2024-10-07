@@ -229,7 +229,7 @@ resource "azurerm_storage_account" "example" {
   account_tier             =
 
 
-
+```
 
 
 ### Use Case: Reporting from Azure SQL and Azure Monitor to Power BI
