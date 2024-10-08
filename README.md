@@ -1,3 +1,94 @@
+
+### Expanded Schema Representation for Azure Monitor Metrics and Related Data Sources
+
+In this expanded schema, we provide a detailed breakdown of the metrics captured by **Azure Monitor** and the associated data sources. These metrics cover areas like system performance, resource utilization, log monitoring, and diagnostics across various Azure services such as **Azure Functions**, **Azure SQL Database**, **Azure Blob Storage**, and more. 
+
+This schema representation will help ensure all necessary data points are captured and available for monitoring and reporting purposes, particularly for complex systems that rely on real-time insights.
+
+| **Data Source**                  | **Table/Entity**            | **Metric**                                      | **Field/Column Name**                 | **Data Type**      | **Description**                                                        |
+|-----------------------------------|-----------------------------|-------------------------------------------------|---------------------------------------|--------------------|------------------------------------------------------------------------|
+| **Azure Monitor (General)**       | MetricLogs                  | Number of Logs Ingested                         | LogsIngested                          | INT                | Total number of logs ingested into Azure Monitor from various sources. |
+|                                   | MetricLogs                  | Log Processing Time                             | LogProcessingTime                     | FLOAT              | Time taken to process ingested logs (in seconds).                      |
+|                                   | AlertLogs                   | Number of Alerts Triggered                      | AlertsTriggered                       | INT                | Total number of alerts raised based on defined metric conditions.      |
+|                                   | AlertLogs                   | Alert Severity                                  | AlertSeverity                         | VARCHAR(50)         | Severity level of the triggered alert (e.g., Critical, Warning).        |
+|                                   | ResourceUsageMetrics        | Total Data Ingested                             | DataIngested                          | BIGINT              | Total volume of data ingested (in bytes).                              |
+|                                   | ResourceUsageMetrics        | Total Metrics Data Processed                    | MetricsProcessed                      | BIGINT              | Total volume of metrics data processed by Azure Monitor.               |
+|                                   | ResourceUsageMetrics        | Number of Metric Queries Executed               | MetricQueryCount                      | INT                | Number of metric queries executed.                                     |
+|                                   | ResourceUsageMetrics        | Query Execution Time                            | QueryExecutionTime                    | FLOAT              | Time taken to execute metric queries (in seconds).                     |
+|                                   | DiagnosticSettings           | Number of Resources Monitored                   | MonitoredResourceCount                | INT                | Count of resources (VMs, Functions, Databases, etc.) being monitored.  |
+| **Azure Functions**               | FunctionLogs                | Number of Function Invocations                  | FunctionInvocationCount               | INT                | Number of times the Azure Function was invoked.                        |
+|                                   | FunctionLogs                | Function Execution Time                         | FunctionExecutionTime                 | FLOAT              | Total execution time for Azure Functions (in seconds).                 |
+|                                   | FunctionLogs                | Number of Failed Executions                     | FunctionFailureCount                  | INT                | Number of failed Azure Function executions.                            |
+|                                   | FunctionLogs                | Success/Failure Status                          | FunctionStatus                        | VARCHAR(50)         | Status of function execution (e.g., Success, Failed).                  |
+|                                   | FunctionPerformanceMetrics  | Memory Utilization                              | FunctionMemoryUsage                   | FLOAT              | Memory usage by the Azure Function (in MB).                            |
+|                                   | FunctionPerformanceMetrics  | CPU Utilization                                 | FunctionCPUUsage                      | FLOAT              | CPU usage by the Azure Function (in percentage).                       |
+| **Azure Blob Storage**            | BlobMonitoringLogs          | Number of Blobs Created                         | BlobsCreatedCount                     | INT                | Total number of blobs created within the monitored storage account.    |
+|                                   | BlobMonitoringLogs          | Blob Upload Latency                             | BlobUploadLatency                     | FLOAT              | Time taken to upload a blob (in seconds).                              |
+|                                   | BlobMonitoringLogs          | Blob Download Latency                           | BlobDownloadLatency                   | FLOAT              | Time taken to download a blob (in seconds).                            |
+|                                   | BlobMonitoringLogs          | Blob Storage Access Errors                      | BlobAccessErrorCount                  | INT                | Total number of access errors on the storage account.                  |
+| **Azure SQL Database**            | SQLPerformanceMetrics       | Query Execution Time                            | SQLQueryExecutionTime                 | FLOAT              | Time taken to execute a query in Azure SQL Database.                   |
+|                                   | SQLPerformanceMetrics       | Number of Active Connections                    | SQLActiveConnectionCount              | INT                | Total number of active connections to the SQL database.                |
+|                                   | SQLPerformanceMetrics       | CPU Usage                                       | SQLCPUUsage                           | FLOAT              | CPU utilization of the SQL database (in percentage).                   |
+|                                   | SQLPerformanceMetrics       | Memory Usage                                    | SQLMemoryUsage                        | FLOAT              | Memory usage of the SQL database (in MB).                              |
+|                                   | SQLPerformanceMetrics       | Number of Queries Executed                      | SQLQueriesExecuted                    | INT                | Total number of queries executed.                                      |
+|                                   | SQLPerformanceMetrics       | Deadlock Count                                  | SQLDeadlockCount                      | INT                | Number of deadlocks detected in the database.                          |
+|                                   | SQLAvailabilityMetrics      | Database Uptime                                 | SQLUptime                             | FLOAT              | Total uptime of the SQL database (in hours).                           |
+| **Virtual Machines**              | VMUsageMetrics              | CPU Utilization                                 | VMCPUUsage                            | FLOAT              | CPU utilization of the virtual machine (in percentage).                |
+|                                   | VMUsageMetrics              | Memory Utilization                              | VMMemoryUsage                         | FLOAT              | Memory usage of the virtual machine (in MB).                           |
+|                                   | VMUsageMetrics              | Disk Read/Write Latency                         | VMDiskLatency                         | FLOAT              | Time taken to read/write data to disk (in milliseconds).               |
+|                                   | VMAvailabilityMetrics       | VM Uptime                                       | VMUptime                              | FLOAT              | Total uptime of the virtual machine (in hours).                        |
+|                                   | VMAvailabilityMetrics       | Number of Crashes                               | VMCrashCount                          | INT                | Total number of VM crashes.                                            |
+| **Azure Event Hub**               | EventHubMetrics             | Number of Events Processed                      | EventsProcessed                       | INT                | Total number of events processed by Event Hub.                         |
+|                                   | EventHubMetrics             | Number of Failed Event Processing               | FailedEventCount                      | INT                | Total number of failed event processing attempts.                      |
+|                                   | EventHubMetrics             | Event Processing Latency                        | EventProcessingLatency                | FLOAT              | Time taken to process an event (in milliseconds).                     |
+|                                   | EventHubMetrics             | Number of Messages Sent to DLQ                  | DLQMessageCount                       | INT                | Number of messages sent to the Dead Letter Queue (DLQ).                |
+|                                   | EventHubMetrics             | Number of Messages Retrieved from DLQ           | DLQMessageRetrievedCount              | INT                | Number of messages successfully retrieved from DLQ.                    |
+| **Application Insights**          | AppInsightsMetrics          | Application Response Time                       | AppResponseTime                       | FLOAT              | Average response time of the monitored application (in milliseconds).  |
+|                                   | AppInsightsMetrics          | Request Rate                                    | AppRequestRate                        | INT                | Number of requests received by the application.                        |
+|                                   | AppInsightsMetrics          | Request Success Rate                            | AppRequestSuccessRate                 | FLOAT              | Percentage of successful requests received by the application.         |
+|                                   | AppInsightsMetrics          | Number of Failures                              | AppFailureCount                       | INT                | Total number of application failures.                                  |
+|                                   | AppInsightsMetrics          | Dependency Response Time                        | DependencyResponseTime                | FLOAT              | Response time for application dependencies (in milliseconds).          |
+|                                   | AppInsightsMetrics          | Exception Rate                                  | AppExceptionRate                      | FLOAT              | Number of exceptions thrown by the application.                        |
+
+---
+
+### Detailed Breakdown of Azure Monitor Metrics by Data Source
+
+1. **Azure Monitor (General)**:
+   - **MetricLogs** and **ResourceUsageMetrics** capture general metrics such as the number of logs ingested, alerts triggered, and overall data usage by Azure Monitor.
+   - **DiagnosticSettings** captures information about the number of resources (e.g., virtual machines, databases, functions) being monitored.
+
+2. **Azure Functions**:
+   - **FunctionLogs** captures metrics around the execution of Azure Functions, such as invocation count, execution time, and success/failure rates.
+   - **FunctionPerformanceMetrics** monitors the performance of Azure Functions, tracking memory and CPU utilization.
+
+3. **Azure Blob Storage**:
+   - **BlobMonitoringLogs** tracks the performance of Blob Storage operations such as blob creation, upload/download latency, and access errors.
+
+4. **Azure SQL Database**:
+   - **SQLPerformanceMetrics** captures performance-related metrics such as query execution times, active connections, CPU and memory usage, and the number of executed queries.
+   - **SQLAvailabilityMetrics** tracks uptime and deadlocks within the database.
+
+5. **Virtual Machines (VMs)**:
+   - **VMUsageMetrics** captures CPU and memory utilization for virtual machines, as well as disk latency for read/write operations.
+   - **VMAvailabilityMetrics** tracks the uptime and crash count of the virtual machines being monitored.
+
+6. **Azure Event Hub**:
+   - **EventHubMetrics** captures the number of events processed, event processing latency, and the status of messages in the **Dead Letter Queue (DLQ)**.
+
+7. **Application Insights**:
+   - **AppInsightsMetrics** tracks application-level metrics, including response times, request rates, success rates, and failures.
+   - It also captures dependency response times and the number of exceptions thrown by the application.
+
+---
+
+### Example Queries for Azure Monitor Data
+
+1. **Azure Functions**: Query for failed function executions in the last 24 hours.
+   ```kusto
+   FunctionLogs
+   | where TimeGenerated > ago
+
 ### Schema Representation for MoveIt Metrics and Data Sources
 
 In this table, we will represent the schema for metrics related to **MoveIt** and its associated data sources, including **Azure Blob Storage**, **Azure SQL Database**, **Azure Monitor**, and **Power BI** for reporting.
