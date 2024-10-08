@@ -1,4 +1,101 @@
 
+### Expanded Schema Representation for **Azure Monitor** Metrics and **Azure Storage** (Blobs, Files, Queues, and Tables)
+
+This table provides a detailed schema representation of key metrics captured by **Azure Monitor** related to **Azure Storage** (including Containers, Shares, Queues, and Tables) and their respective data sources. Azure Monitor collects real-time metrics, logs, and diagnostic data from various Azure services, helping administrators monitor the performance and health of Azure resources.
+
+### Schema Representation
+
+| **Data Source**                | **Table/Entity**            | **Metric**                                      | **Field/Column Name**               | **Data Type**      | **Description**                                                        |
+|---------------------------------|-----------------------------|-------------------------------------------------|-------------------------------------|--------------------|------------------------------------------------------------------------|
+| **Azure Monitor (Blob Storage)**| BlobOperationsLogs           | Total Blob Uploads                              | BlobUploadCount                     | INT                | Total number of blob uploads in the container.                         |
+|                                 | BlobOperationsLogs           | Total Blob Downloads                            | BlobDownloadCount                   | INT                | Total number of blob downloads.                                        |
+|                                 | BlobOperationsLogs           | Failed Blob Upload Attempts                     | BlobUploadFailures                  | INT                | Number of failed attempts to upload blobs.                             |
+|                                 | BlobOperationsLogs           | Failed Blob Download Attempts                   | BlobDownloadFailures                | INT                | Number of failed attempts to download blobs.                           |
+|                                 | BlobCapacityLogs             | Blob Container Capacity (Bytes)                 | BlobCapacity                        | BIGINT              | Total storage capacity used by the blobs in bytes.                     |
+|                                 | BlobCapacityLogs             | Blob Count in Container                         | BlobCount                           | INT                | Total number of blobs in the container.                                |
+|                                 | BlobLatencyLogs              | Average Blob Upload Latency (ms)                | BlobUploadLatency                   | FLOAT              | Average time taken to upload blobs in milliseconds.                    |
+|                                 | BlobLatencyLogs              | Average Blob Download Latency (ms)              | BlobDownloadLatency                 | FLOAT              | Average time taken to download blobs in milliseconds.                  |
+| **Azure Monitor (File Shares)**  | FileShareOperationsLogs      | Total File Uploads                              | FileUploadCount                     | INT                | Total number of files uploaded to the share.                           |
+|                                 | FileShareOperationsLogs      | Total File Downloads                            | FileDownloadCount                   | INT                | Total number of files downloaded from the share.                       |
+|                                 | FileShareOperationsLogs      | Failed File Upload Attempts                     | FileUploadFailures                  | INT                | Number of failed attempts to upload files to the share.                |
+|                                 | FileShareOperationsLogs      | Failed File Download Attempts                   | FileDownloadFailures                | INT                | Number of failed attempts to download files from the share.            |
+|                                 | FileShareCapacityLogs        | Total Capacity Used (Bytes)                     | FileShareCapacity                   | BIGINT              | Total storage capacity used by the file share in bytes.                |
+|                                 | FileShareCapacityLogs        | Total Number of Files in Share                  | FileCount                           | INT                | Total number of files stored in the file share.                        |
+|                                 | FileShareLatencyLogs         | Average File Upload Latency (ms)                | FileUploadLatency                   | FLOAT              | Average time taken to upload files in milliseconds.                    |
+|                                 | FileShareLatencyLogs         | Average File Download Latency (ms)              | FileDownloadLatency                 | FLOAT              | Average time taken to download files in milliseconds.                  |
+| **Azure Monitor (Queues)**       | QueueOperationsLogs          | Number of Messages Enqueued                    | MessagesEnqueued                    | INT                | Total number of messages enqueued in the queue.                        |
+|                                 | QueueOperationsLogs          | Number of Messages Dequeued                    | MessagesDequeued                    | INT                | Total number of messages dequeued from the queue.                      |
+|                                 | QueueOperationsLogs          | Number of Messages Peeked                      | MessagesPeeked                      | INT                | Total number of messages peeked at without removing them from the queue.|
+|                                 | QueueOperationsLogs          | Number of Failed Enqueue Attempts               | EnqueueFailures                     | INT                | Number of failed enqueue attempts.                                     |
+|                                 | QueueOperationsLogs          | Number of Failed Dequeue Attempts               | DequeueFailures                     | INT                | Number of failed dequeue attempts.                                     |
+|                                 | QueueCapacityLogs            | Total Queue Capacity (Messages)                 | QueueCapacity                       | INT                | Total number of messages the queue can hold at one time.               |
+|                                 | QueueLatencyLogs             | Average Time to Enqueue Message (ms)            | EnqueueLatency                      | FLOAT              | Average time taken to enqueue messages in milliseconds.                |
+|                                 | QueueLatencyLogs             | Average Time to Dequeue Message (ms)            | DequeueLatency                      | FLOAT              | Average time taken to dequeue messages in milliseconds.                |
+| **Azure Monitor (Tables)**       | TableOperationsLogs          | Number of Table Inserts                        | TableInserts                        | INT                | Total number of table inserts (entity creation).                       |
+|                                 | TableOperationsLogs          | Number of Table Queries                        | TableQueries                        | INT                | Total number of queries executed on the table.                         |
+|                                 | TableOperationsLogs          | Number of Table Deletes                        | TableDeletes                        | INT                | Total number of entities deleted from the table.                       |
+|                                 | TableOperationsLogs          | Number of Table Updates                        | TableUpdates                        | INT                | Total number of updates to table entities.                             |
+|                                 | TableOperationsLogs          | Number of Failed Inserts                       | InsertFailures                      | INT                | Number of failed insert operations.                                    |
+|                                 | TableOperationsLogs          | Number of Failed Queries                       | QueryFailures                       | INT                | Number of failed query operations.                                     |
+|                                 | TableCapacityLogs            | Total Table Capacity (Entities)                | TableCapacity                       | INT                | Total number of entities that the table can hold.                      |
+|                                 | TableLatencyLogs             | Average Table Insert Latency (ms)              | InsertLatency                       | FLOAT              | Average time taken to insert an entity into the table in milliseconds. |
+|                                 | TableLatencyLogs             | Average Table Query Latency (ms)               | QueryLatency                        | FLOAT              | Average time taken to query entities from the table in milliseconds.   |
+| **Azure Monitor (Azure Functions)**| FunctionOperationsLogs     | Number of Function Invocations                 | FunctionInvocationCount             | INT                | Total number of times an Azure Function was invoked.                   |
+|                                 | FunctionOperationsLogs       | Number of Function Failures                    | FunctionFailureCount                | INT                | Total number of function execution failures.                           |
+|                                 | FunctionOperationsLogs       | Function Execution Time                        | FunctionExecutionTime               | FLOAT              | Total time (in seconds) taken to execute the function.                 |
+|                                 | FunctionCapacityLogs         | Function Memory Usage (MB)                     | FunctionMemoryUsage                 | FLOAT              | Total memory consumed during function execution (in MB).               |
+|                                 | FunctionCapacityLogs         | Function CPU Usage (%)                         | FunctionCpuUsage                    | FLOAT              | Percentage of CPU used during function execution.                      |
+
+### Description of Key Metrics
+
+1. **Blob Storage Metrics**:
+   - **BlobUploadCount**: Tracks the number of blob uploads in the container.
+   - **BlobDownloadCount**: Tracks the number of blob downloads.
+   - **BlobUploadFailures**: Captures the number of failed attempts to upload blobs.
+   - **BlobCapacity**: Indicates the total space used by blobs within the container.
+   - **BlobUploadLatency**: Measures the average time taken to upload blobs in milliseconds.
+
+2. **File Share Metrics**:
+   - **FileUploadCount**: Tracks the number of file uploads to Azure File Shares.
+   - **FileDownloadCount**: Tracks the number of file downloads.
+   - **FileShareCapacity**: Measures the total space used by files within the file share.
+   - **FileUploadLatency**: Measures the average latency for file uploads in milliseconds.
+
+3. **Queue Metrics**:
+   - **MessagesEnqueued**: The total number of messages enqueued in the Azure Queue.
+   - **MessagesDequeued**: Tracks how many messages have been dequeued from the queue.
+   - **QueueCapacity**: Shows the current capacity of the queue, based on the number of messages it can hold.
+   - **EnqueueLatency**: Measures the average time it takes to enqueue a message into the queue.
+
+4. **Table Storage Metrics**:
+   - **TableInserts**: Tracks the number of entities inserted into Azure Tables.
+   - **TableQueries**: Captures the number of queries performed on table storage.
+   - **TableInsertLatency**: Measures the time taken to insert a new entity into the table.
+
+5. **Azure Functions Metrics**:
+   - **FunctionInvocationCount**: Logs the number of times an Azure Function was triggered.
+   - **FunctionFailureCount**: Tracks the number of failed Azure Function executions.
+   - **FunctionMemoryUsage**: Records the amount of memory used during function execution.
+
+### Example Queries for Data Sources
+
+1. **Blob Storage**: Get the number of failed blob uploads in the last 24 hours.
+   ```kusto
+   BlobOperationsLogs
+   | where TimeGenerated > ago(24h) and BlobUploadFailures > 0
+   | summarize FailedUploads = count() by bin(TimeGenerated, 1h)
+   ```
+
+2. **File Share**: Get the total file upload latency for the past week.
+   ```kusto
+   FileShareLatencyLogs
+   | where UploadTime > ago(7d)
+   | summarize AvgFileUploadLatency = avg(FileUploadLatency)
+   ```
+
+3. **Queue**: Track the number of messages enqueued and deque
+
+
 ### Expanded Schema Representation for Azure Monitor Metrics and Related Data Sources
 
 In this expanded schema, we provide a detailed breakdown of the metrics captured by **Azure Monitor** and the associated data sources. These metrics cover areas like system performance, resource utilization, log monitoring, and diagnostics across various Azure services such as **Azure Functions**, **Azure SQL Database**, **Azure Blob Storage**, and more. 
