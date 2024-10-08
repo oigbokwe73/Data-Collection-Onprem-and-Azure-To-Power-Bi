@@ -679,6 +679,122 @@ Here’s an expanded **Flow Explanation** with detailed steps on how logs from *
 4. **Power BI** visualizes the logs and system performance for business reporting.
 5. **Azure Monitor** provides ongoing monitoring and alerting to ensure the health of the system.
 
+
+### Use Case: Reporting on Azure Identity Management Logs
+
+In this use case, **Azure Identity Management** logs (such as **Azure AD** sign-ins, audit logs, conditional access events, etc.) are captured and sent to **Azure Storage** for storage. These logs are then monitored and processed through **Azure Monitor**, which aggregates, queries, and sends the data to **Power BI** for reporting purposes. This allows administrators to track and monitor user activity, security events, and audit trails in real-time.
+
+### Table: Overview of Resources for Azure Identity Management Reporting
+
+| **Azure Resource**                | **Description**                                                                                                                                             | **Key Action**                                              | **Diagnostics Logs**                                                                                                                                                                      | **Development Effort**                                                                                                         | **Maintenance and Cost**                                                                                                     | **CI/CD Solution in Terraform**                                                                                                                                                                                                                                                  |
+|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Azure Active Directory (AAD)**  | Captures identity-related logs such as user sign-ins, audit logs, and conditional access events.                                                             | Sends logs to Azure Monitor and Azure Storage for analysis.  | Logs track user sign-ins, failed login attempts, audit events, conditional access policies, MFA events, and directory changes.                                                           | Minimal development effort. Logs are generated automatically by AAD. Setup for logging destinations and permissions is required.                             | Azure AD logs are free for basic logging. For advanced features like identity protection and conditional access, licensing costs apply.                          | Terraform can configure Azure AD diagnostic settings to send logs to Azure Monitor, Log Analytics, or Azure Storage.                                                                                                                      |
+| **Azure Storage (Blob)**          | Stores captured logs from Azure Identity Management for further processing and retention.                                                                     | Acts as the storage location for identity logs.              | Logs access operations, file uploads/downloads, and other storage activities. Can also trigger alerts on storage capacity limits or unauthorized access.                                    | Low effort to set up Blob storage and configure diagnostic settings for Azure AD.                                                                                 | Low cost for storage. Pricing scales with the amount of data stored and the transactions performed on storage.                                                  | Terraform provisions the Storage Account and Blob container, configures diagnostic settings, and manages access control with RBAC.                                                                                                                                                 |
+| **Azure Monitor**                 | Queries and processes logs captured in Azure Storage or sent directly from Azure AD. Can create custom alerts based on identity management logs.               | Processes logs and creates custom alerts.                    | Logs queries, alert rules, and metrics associated with identity logs, such as failed login attempts or conditional access violations.                                                     | Medium effort required to configure queries and alerts within Azure Monitor.                                                                                        | Pay-as-you-go model for logs and queries processed in Azure Monitor. Alerts may incur additional costs depending on frequency and volume of data analyzed.       | Terraform configures monitoring rules, alert conditions, and integrates with Log Analytics for querying and visualization.                                                                                                                                                          |
+| **Log Analytics (optional)**      | Helps to aggregate and query the logs for more detailed analysis. Provides a dashboard for viewing logs and metrics before sending to Power BI.                | Aggregates and queries log data from Azure AD and Azure Storage. | Logs the queries executed, user activity, and data source access for the logs and metrics queried through Log Analytics.                                                                  | Medium effort to configure queries for detailed analysis and aggregation of identity logs.                                                                       | Low to moderate cost depending on the amount of log data queried and retained within Log Analytics.                                                              | Terraform configures Log Analytics workspace, links it to Azure Monitor, and sets up custom queries to extract useful data for Power BI reporting.                                                                                                                                |
+| **Power BI**                      | Connects to the processed logs from Azure Monitor (via Azure SQL or Log Analytics) and generates real-time reports and dashboards for identity management.     | Generates dashboards and reports based on identity logs.     | Logs the data queries, report refresh rates, and any failures in accessing data sources. Monitors the activity on report views and updates.                                                | Low effort for creating visualizations once the data source is connected. Reporting setup and custom visuals may require additional development.              | Power BI Desktop is free for personal use; Power BI Pro/Premium incurs costs for sharing and collaboration features, depending on license type.                | Power BI reporting configuration is largely manual, but Terraform can be used to manage data sources (like SQL) or automate parts of the deployment (via APIs).                                                                                                                                                           |
+| **Azure SQL Database (optional)** | Stores processed data from Azure Monitor or Log Analytics, providing structured data for easier querying and reporting in Power BI.                            | Stores structured data for efficient querying in Power BI.    | SQL Insights can track query performance, connection errors, and high-latency queries. Logs user activity on accessing the database and resource usage.                                    | Medium effort required to design schema, optimize queries, and manage access permissions for reporting purposes.                                                  | Moderate cost for the SQL tier selected. Pricing can be based on DTU or vCore models depending on database usage and performance needs.                          | Terraform can create Azure SQL Server, configure firewall rules, set up database schema, and manage access control. Can also handle automated backups and scaling policies.                                                                                                       |
+
+---
+
+### Step-by-Step Setup
+
+#### **Step 1: Set Up Azure Active Directory Logging**
+
+1. **Enable Diagnostic Settings in Azure AD**:
+   - Go to **Azure Active Directory** in the Azure portal.
+   - Under **Monitoring**, select **Diagnostic Settings**.
+   - Enable **Audit Logs**, **Sign-ins**, and **Conditional Access** logging.
+   - Route these logs to **Azure Monitor**, **Log Analytics**, or **Azure Storage Blob** for further analysis.
+
+2. **Configure Retention**:
+   - Define how long you want to retain these logs based on compliance requirements (e.g., 30 days, 90 days).
+
+#### **Step 2: Create an Azure Storage Account for Logs**
+
+1. Use **Azure CLI** to create a storage account and blob container for storing logs.
+
+   ```bash
+   az storage account create --name identitylogsstorage --resource-group IdentityManagementRG --location eastus --sku Standard_LRS
+   az storage container create --account-name identitylogsstorage --name identity-logs
+   ```
+
+2. Ensure **Azure AD** logs are routed to the blob container created.
+
+#### **Step 3: Set Up Azure Monitor to Track Logs**
+
+1. Use **Azure Monitor** to query and analyze logs captured in Azure Storage or directly from Azure AD.
+   - In the Azure portal, go to **Azure Monitor**.
+   - Create a **Log Analytics Workspace** (if needed).
+   - Write Kusto Queries to extract insights from identity logs.
+
+2. Example Kusto Query for failed login attempts:
+
+   ```kusto
+   SigninLogs
+   | where ResultType == 50074 // Failed sign-ins
+   | summarize Count = count() by bin(TimeGenerated, 1h)
+   ```
+
+#### **Step 4: Integrate Azure Monitor with Power BI**
+
+1. **Connect Power BI** to Azure Monitor (via Azure SQL or Log Analytics):
+   - In **Power BI Desktop**, click on **Get Data**.
+   - Select **Azure Monitor Logs** or **Azure SQL Database** as your data source.
+   - Enter the workspace or database connection details.
+
+2. **Build Dashboards**:
+   - Create real-time reports based on user sign-ins, failed login attempts, conditional access events, and other identity management metrics.
+
+#### **Step 5: Optional - Use Azure SQL for Structured Data Storage**
+
+1. If needed, set up an **Azure SQL Database** to store processed identity logs for structured reporting in Power BI.
+   - Provision the database using **Azure CLI** or **Terraform**.
+
+   ```bash
+   az sql server create --name identitysqlserver --resource-group IdentityManagementRG --admin-user adminuser --admin-password Password1234!
+   az sql db create --resource-group IdentityManagementRG --server identitysqlserver --name identitylogsdb --service-objective S0
+   ```
+
+2. **Push Processed Data**:
+   - Use **Azure Monitor** or **Azure Functions** to push processed log data into the SQL Database for optimized querying.
+
+---
+
+### Mermaid Diagram
+
+Below is the **Mermaid diagram** for the flow of logs from Azure Active Directory to Power BI via Azure Storage, Azure Monitor, and Log Analytics:
+
+```mermaid
+graph TD;
+    AAD[Azure Active Directory] --> |Logs sent| Storage[Azure Blob Storage];
+    AAD --> |Logs sent| Monitor[Azure Monitor];
+    Storage --> Monitor[Azure Monitor];
+    Monitor --> LogAnalytics[Log Analytics Workspace];
+    LogAnalytics --> SQL[Azure SQL Database];
+    SQL --> PowerBI[Power BI];
+    Monitor --> PowerBI;
+    Storage --> PowerBI;
+    PowerBI --> Report[Generate Reports];
+    
+    subgraph Data Processing
+        Monitor
+        LogAnalytics
+        SQL
+    end
+```
+
+### Explanation of the Diagram:
+
+- **Azure Active Directory (AAD)**: Generates logs related to identity management, which include sign-ins, audit logs, and conditional access events.
+- **Azure Blob Storage**: Acts as the primary storage for all the logs generated by Azure AD.
+- **Azure Monitor**: Aggregates and queries logs directly from Azure AD or Azure Storage. Can send logs to **Log Analytics** or **Azure SQL** for further processing.
+- **Log Analytics**: Optional workspace for deeper querying and analysis of logs. Data can be further structured or aggregated before sending to Power BI or Azure SQL.
+- **Azure SQL Database**: Stores structured log data for efficient querying by Power BI, making it easy to generate dashboards.
+- **Power BI**: Generates real-time reports based on logs from Azure Monitor, Log Analytics, or Azure SQL, visualizing critical identity management metrics like failed sign-ins and conditional access.
+
+This architecture provides a comprehensive solution to monitor and report on **Azure Identity Management**
+
 ### Expanded Explanation of the Diagram with Step-by-Step Setup Process
 
 This architecture captures and processes **Azure Active Directory (AAD)** identity management logs, stores them in **Azure Blob Storage**, monitors them through **Azure Monitor**, and ultimately uses **Power BI** for reporting. The architecture also incorporates optional components like **Azure Log Analytics** and **Azure SQL Database** for more detailed log analysis and structured data storage.
