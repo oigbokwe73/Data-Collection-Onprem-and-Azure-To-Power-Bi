@@ -924,11 +924,11 @@ Below is a detailed **Mermaid diagram** that shows the step-by-step flow of data
 
 ```mermaid
 graph TD;
-    AAD[Azure Active Directory] --> |Generates Logs| Storage[Azure Blob Storage];
+    AAD[Azure Entra ID] --> |Generates Logs| Storage[Azure Blob Storage];
     AAD --> |Logs Sent| Monitor[Azure Monitor];
     Storage --> |Processed Logs| Monitor[Azure Monitor];
     Monitor --> |Queries and Alerts| LogAnalytics[Log Analytics Workspace];
-    LogAnalytics --> |Optional: Structured Data| SQL[Azure SQL Database];
+    LogAnalytics --> |Structured Data| SQL[Azure SQL Database];
     SQL --> |Query for Reporting| PowerBI[Power BI];
     Monitor --> |Direct Query| PowerBI[Power BI];
     LogAnalytics --> |Direct Query| PowerBI[Power BI];
@@ -943,7 +943,7 @@ graph TD;
 
 ### Explanation of the Diagram:
 
-1. **Azure Active Directory (AAD)** generates logs related to user sign-ins, conditional access, and audit events. These logs are routed to **Azure Blob Storage** and **Azure Monitor** for processing and storage.
+1. **Azure Entra ID** generates logs related to user sign-ins, conditional access, and audit events. These logs are routed to **Azure Blob Storage** and **Azure Monitor** for processing and storage.
 2. **Azure Blob Storage** acts as the main repository for raw logs, where data can be archived or further processed.
 3. **Azure Monitor** captures logs directly from AAD and Blob Storage, processes the data, and generates queries and alerts based on specific conditions (e.g., failed sign-ins).
 4. **Log Analytics Workspace** provides advanced querying and aggregation of logs. It can also be used to structure logs before sending them to **Azure SQL Database**.
