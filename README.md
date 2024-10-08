@@ -1,4 +1,51 @@
 
+
+Here's a **schema representation** for all the metrics provided (related to **Azure Identity Management logs**) and their respective data sources. The table defines key metrics that are tracked, their data sources, and the fields associated with each metric in a structured format.
+
+### Table: Schema Representation for Azure Identity Management Metrics and Data Sources
+
+| **Metric**                         | **Description**                                                                                      | **Data Source**                      | **Fields**                                                                                                      | **Example Data**                                                                                       |
+|------------------------------------|------------------------------------------------------------------------------------------------------|--------------------------------------|-----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| **Sign-in Attempts**               | Tracks the number of sign-in attempts made by users (both successful and failed).                     | **Azure AD Sign-in Logs**            | - `UserPrincipalName`: Username<br> - `ResultType`: Success/Failure<br> - `Timestamp`: Date and time of attempt | - `john.doe@company.com`, `Success`, `2023-10-05 08:30:00`                                               |
+| **Failed Sign-ins**                | Logs failed user sign-ins due to incorrect credentials, MFA issues, or conditional access policies.    | **Azure AD Sign-in Logs**            | - `UserPrincipalName`: Username<br> - `FailureReason`: Reason for failure<br> - `Timestamp`: Time of failure    | - `jane.doe@company.com`, `MFA Required`, `2023-10-05 08:35:00`                                          |
+| **Successful Sign-ins**            | Logs successful sign-ins by users after completing authentication steps.                              | **Azure AD Sign-in Logs**            | - `UserPrincipalName`: Username<br> - `AppName`: Application accessed<br> - `Timestamp`: Time of success        | - `mike.smith@company.com`, `Microsoft Teams`, `2023-10-05 09:15:00`                                     |
+| **Conditional Access Events**       | Tracks conditional access events such as MFA challenges, denied access due to policies, or location.   | **Azure AD Conditional Access Logs** | - `UserPrincipalName`: Username<br> - `PolicyName`: Conditional access policy<br> - `Action`: MFA/Deny Access    | - `sara.jones@company.com`, `Location Restriction`, `MFA Challenge`, `2023-10-05 09:40:00`               |
+| **MFA Challenges**                 | Logs where users were challenged to complete multi-factor authentication (MFA).                       | **Azure AD Sign-in Logs**            | - `UserPrincipalName`: Username<br> - `MFAStatus`: MFA Challenge initiated/completed<br> - `Timestamp`: Time     | - `alex.brown@company.com`, `MFA Challenge`, `2023-10-05 10:00:00`                                       |
+| **MFA Successes**                  | Logs successful MFA verifications for users.                                                          | **Azure AD Sign-in Logs**            | - `UserPrincipalName`: Username<br> - `MFAStatus`: MFA Success<br> - `Timestamp`: Time of success                | - `sam.white@company.com`, `MFA Success`, `2023-10-05 10:10:00`                                          |
+| **Audit Events**                   | Tracks changes in user profiles, password changes, group modifications, etc.                          | **Azure AD Audit Logs**              | - `ActivityType`: Type of audit action<br> - `InitiatedBy`: Admin or user<br> - `Timestamp`: Time of activity    | - `UserPasswordChange`, `Admin`, `2023-10-05 11:00:00`                                                   |
+| **Failed MFA Attempts**            | Logs failed MFA attempts by users (due to incorrect authentication codes, device issues, etc.).        | **Azure AD Sign-in Logs**            | - `UserPrincipalName`: Username<br> - `MFAStatus`: MFA Failure<br> - `FailureReason`: Reason for failure         | - `nick.green@company.com`, `MFA Failure`, `Device Unavailable`, `2023-10-05 10:20:00`                   |
+| **Application Access Requests**    | Tracks the applications accessed by users (successful attempts).                                      | **Azure AD Sign-in Logs**            | - `UserPrincipalName`: Username<br> - `AppName`: Application accessed<br> - `Timestamp`: Time of access          | - `karen.blake@company.com`, `Outlook`, `2023-10-05 12:00:00`                                            |
+| **Conditional Access Failures**    | Logs failed attempts due to conditional access policies (location, device, etc.).                     | **Azure AD Conditional Access Logs** | - `UserPrincipalName`: Username<br> - `PolicyName`: Conditional access policy<br> - `Timestamp`: Time of failure | - `henry.adams@company.com`, `Device Restriction`, `Access Denied`, `2023-10-05 12:15:00`                |
+| **Sign-in Geo Locations**          | Tracks the geo-locations of sign-in attempts (useful for detecting anomalous access patterns).         | **Azure AD Sign-in Logs**            | - `UserPrincipalName`: Username<br> - `Location`: City, Country<br> - `Timestamp`: Time of attempt               | - `emily.carter@company.com`, `New York, USA`, `2023-10-05 14:00:00`                                      |
+| **Sign-in Devices**                | Tracks the devices used by users during sign-ins (useful for detecting device-based patterns).         | **Azure AD Sign-in Logs**            | - `UserPrincipalName`: Username<br> - `DeviceType`: Device used<br> - `Timestamp`: Time of access                | - `john.doe@company.com`, `iPhone`, `2023-10-05 14:30:00`                                                |
+| **Group Membership Changes**       | Logs when a user is added to or removed from a group.                                                  | **Azure AD Audit Logs**              | - `UserPrincipalName`: Username<br> - `GroupName`: Group modified<br> - `Action`: Add/Remove<br> - `Timestamp`   | - `anna.lee@company.com`, `FinanceGroup`, `Add`, `2023-10-05 15:00:00`                                    |
+| **Password Reset Attempts**        | Logs attempts by users to reset their password.                                                       | **Azure AD Audit Logs**              | - `UserPrincipalName`: Username<br> - `Action`: Password Reset<br> - `ResultType`: Success/Failure<br> - `Timestamp` | - `david.jones@company.com`, `Password Reset`, `Success`, `2023-10-05 15:30:00`                           |
+| **Password Changes**               | Tracks successful password changes by users or admins.                                                | **Azure AD Audit Logs**              | - `UserPrincipalName`: Username<br> - `Action`: Password Change<br> - `Timestamp`: Time of change                | - `susan.wilson@company.com`, `Password Change`, `2023-10-05 16:00:00`                                    |
+
+### Data Source Definitions:
+
+1. **Azure AD Sign-in Logs**:
+   - **Description**: These logs track sign-in attempts made by users to any application integrated with Azure AD.
+   - **Captured Metrics**: Successful and failed sign-ins, MFA challenges, user devices, geo-locations, and app access requests.
+
+2. **Azure AD Audit Logs**:
+   - **Description**: Audit logs capture changes to users, groups, policies, and other administrative actions in Azure AD.
+   - **Captured Metrics**: Password resets, user group memberships, user profile changes, audit trails, etc.
+
+3. **Azure AD Conditional Access Logs**:
+   - **Description**: These logs track events triggered by conditional access policies, such as MFA requirements or denied access due to location or device.
+   - **Captured Metrics**: Conditional access policy enforcement, MFA status, access failures, and location-based restrictions.
+
+---
+
+### Use Case:
+
+In this use case, all of the above metrics are captured through **Azure AD Sign-in Logs**, **Audit Logs**, and **Conditional Access Logs**. These logs are then stored in **Azure Storage** and processed through **Azure Monitor** or **Log Analytics** for analysis. The processed data is then visualized in **Power BI**, allowing administrators to generate reports on user access, security violations, MFA activity, and other key identity metrics.
+
+Each metric is tied to key fields like the username (`UserPrincipalName`), the result of the action (`ResultType`), and timestamps (`Timestamp`). This data is crucial for tracking user activity, detecting security issues, and auditing identity management actions in an organization.
+
+
+
 Here’s a detailed table and a corresponding Mermaid sequence diagram for your **System Integration Platform** connecting to **Azure Storage Blob Container** and **Azure Storage Queue**, focusing on capturing logs and message flow details such as messages received, delivered, and sent to the Dead Letter Queue.
 
 ### Detailed Table
