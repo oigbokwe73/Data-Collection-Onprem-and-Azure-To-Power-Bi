@@ -1,4 +1,106 @@
 
+### Schema Representation for MoveIt Metrics and Data Sources
+
+In this table, we will represent the schema for metrics related to **MoveIt** and its associated data sources, including **Azure Blob Storage**, **Azure SQL Database**, **Azure Monitor**, and **Power BI** for reporting.
+
+The schema includes key metrics such as the number of file transfers, success/failure logs, errors, and system performance. Each data source is mapped to specific tables and fields for comprehensive log management and reporting.
+
+| **Data Source**                | **Table/Entity**            | **Metric**                                      | **Field/Column Name**               | **Data Type**      | **Description**                                                        |
+|---------------------------------|-----------------------------|-------------------------------------------------|-------------------------------------|--------------------|------------------------------------------------------------------------|
+| **MoveIt**                      | TransferLogs                | Number of Transfers                             | TransferCount                       | INT                | Total number of file transfers executed.                               |
+|                                 | TransferLogs                | Successful Transfers                            | SuccessfulTransfers                 | INT                | Total number of successful file transfers.                             |
+|                                 | TransferLogs                | Failed Transfers                                | FailedTransfers                     | INT                | Total number of failed file transfers.                                 |
+|                                 | ErrorLogs                   | Error Messages                                  | ErrorMessage                        | VARCHAR(MAX)        | Captures the error message details for failed transfers.               |
+|                                 | TransferDetails             | Transfer Start Time                             | StartTime                           | DATETIME            | Start time for each transfer.                                          |
+|                                 | TransferDetails             | Transfer End Time                               | EndTime                             | DATETIME            | End time for each transfer.                                            |
+|                                 | TransferDetails             | Transfer Duration                               | Duration                            | INT                | Duration (in seconds) of each transfer.                                |
+| **Azure Blob Storage**           | BlobOperationsLogs          | Number of Blob Uploads                          | BlobUploadCount                     | INT                | Total number of files uploaded to the blob container.                  |
+|                                 | BlobOperationsLogs          | Number of Blob Downloads                        | BlobDownloadCount                   | INT                | Total number of files downloaded from the blob container.              |
+|                                 | BlobOperationsLogs          | Blob Storage Access Errors                      | BlobAccessErrors                    | INT                | Count of errors accessing Blob Storage.                                |
+|                                 | BlobDetails                 | Blob File Name                                  | BlobName                            | VARCHAR(255)        | Name of the blob file.                                                 |
+|                                 | BlobDetails                 | Blob Upload Time                                | UploadTime                          | DATETIME            | Time when the blob was uploaded.                                       |
+|                                 | BlobDetails                 | Blob Size                                       | BlobSize                            | BIGINT              | Size of the uploaded blob (in bytes).                                  |
+| **Azure SQL Database**           | TransferSummary             | Total Transfer Count                            | TotalTransfers                      | INT                | Total number of transfers recorded.                                    |
+|                                 | TransferSummary             | Total Successful Transfers                      | TotalSuccessful                     | INT                | Total number of successful transfers.                                  |
+|                                 | TransferSummary             | Total Failed Transfers                          | TotalFailed                         | INT                | Total number of failed transfers.                                      |
+|                                 | TransferSummary             | Average Transfer Duration                       | AvgTransferDuration                 | FLOAT              | Average duration (in seconds) of all transfers.                        |
+|                                 | DLQSummary                  | Number of Messages Sent to Dead Letter Queue    | DLQMessageCount                     | INT                | Total number of messages sent to DLQ.                                  |
+|                                 | DLQSummary                  | Number of Messages Delivered                    | DLQMessagesDelivered                | INT                | Total number of messages successfully delivered from DLQ.              |
+| **Azure Monitor**                | MonitoringLogs              | Function Invocation Count                       | FunctionInvocationCount             | INT                | Number of times the Azure Function was invoked.                        |
+|                                 | MonitoringLogs              | Function Execution Time                         | FunctionExecutionTime               | FLOAT              | Total execution time for Azure Functions (in seconds).                 |
+|                                 | MonitoringLogs              | Function Failure Count                          | FunctionFailureCount                | INT                | Number of failed Azure Function executions.                            |
+|                                 | AlertLogs                   | Number of Alerts Triggered                      | AlertsTriggered                     | INT                | Total number of alerts triggered based on performance issues.          |
+| **Power BI (Reporting)**         | ReportMetrics               | Report Refresh Count                            | ReportRefreshCount                  | INT                | Number of times the Power BI report was refreshed.                     |
+|                                 | ReportMetrics               | Data Source Connection Success                  | DataSourceConnectionSuccess         | INT                | Number of successful connections to the data source (Azure SQL, etc.). |
+|                                 | ReportMetrics               | Data Source Connection Failures                 | DataSourceConnectionFailure         | INT                | Number of failed connections to the data source.                       |
+|                                 | ReportMetrics               | Report Generation Time                          | ReportGenerationTime                | FLOAT              | Time taken to generate the report (in seconds).                        |
+
+### Detailed Description of Schema Fields
+
+1. **MoveIt**:
+   - **TransferLogs**: This table logs key metrics around file transfers, such as the total number of transfers, successful and failed transfers.
+   - **ErrorLogs**: Contains details of error messages for failed file transfers, allowing deeper diagnostics.
+   - **TransferDetails**: Logs detailed timing data for each transfer, such as start time, end time, and the total duration.
+
+2. **Azure Blob Storage**:
+   - **BlobOperationsLogs**: Captures operations on blob files, including uploads, downloads, and errors during access.
+   - **BlobDetails**: Stores metadata for each blob such as file names, size, and timestamps.
+
+3. **Azure SQL Database**:
+   - **TransferSummary**: Stores a summary of transfer metrics aggregated from **MoveIt**. This table is ideal for querying from **Power BI** for reporting purposes.
+   - **DLQSummary**: Tracks the status of messages that were routed to the **Dead Letter Queue (DLQ)** and measures success in delivery.
+
+4. **Azure Monitor**:
+   - **MonitoringLogs**: Logs Azure Function executions, including invocation count, execution time, and any failure metrics.
+   - **AlertLogs**: Tracks alerts raised by **Azure Monitor** based on predefined conditions, helping administrators identify issues like transfer delays or failed operations.
+
+5. **Power BI (Reporting)**:
+   - **ReportMetrics**: Provides statistics related to report generation and data source connectivity within **Power BI**. Key metrics include the number of refreshes, connection successes, and failures.
+
+---
+
+### Example Queries for Data Sources
+
+1. **MoveIt**: Query to get the number of failed transfers.
+   ```sql
+   SELECT COUNT(*) AS FailedTransfers
+   FROM TransferLogs
+   WHERE Status = 'Failed';
+   ```
+
+2. **Azure Blob Storage**: Query to get the total size of blobs uploaded over the last week.
+   ```sql
+   SELECT SUM(BlobSize) AS TotalBlobSize
+   FROM BlobDetails
+   WHERE UploadTime > DATEADD(day, -7, GETDATE());
+   ```
+
+3. **Azure SQL**: Query to get the average transfer duration for successful transfers.
+   ```sql
+   SELECT AVG(Duration) AS AvgTransferDuration
+   FROM TransferDetails
+   WHERE Status = 'Success';
+   ```
+
+4. **Azure Monitor**: Query to get the number of failed function invocations in the last 24 hours.
+   ```kusto
+   MonitoringLogs
+   | where TimeGenerated > ago(24h) and FunctionStatus == "Failed"
+   | summarize FailedCount = count();
+   ```
+
+5. **Power BI**: Query to track report generation time in Power BI.
+   ```sql
+   SELECT AVG(ReportGenerationTime) AS AvgReportTime
+   FROM ReportMetrics;
+   ```
+
+### Conclusion
+
+This table schema provides a structured representation of the key metrics and data sources involved in **MoveIt** logs and data flows. It spans from log capture in **Azure Blob Storage** to data processing via **Azure Monitor**, **Azure SQL**, and **Power BI** for reporting. The schema is designed for efficient querying and reporting, ensuring comprehensive log management and insights into the data pipeline's performance.
+
+
+
 ### Expanded Schema Representation for **Azure Monitor** Metrics and **Azure Storage** (Blobs, Files, Queues, and Tables)
 
 This table provides a detailed schema representation of key metrics captured by **Azure Monitor** related to **Azure Storage** (including Containers, Shares, Queues, and Tables) and their respective data sources. Azure Monitor collects real-time metrics, logs, and diagnostic data from various Azure services, helping administrators monitor the performance and health of Azure resources.
