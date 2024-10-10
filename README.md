@@ -1,4 +1,76 @@
 
+Here is a detailed table for **ServiceNow Metrics** that includes the data source, table/entity, metrics, field/column names, and descriptions of each metric. These metrics can be used to track performance, incident management, and system health within **ServiceNow**.
+
+### Table: ServiceNow Metrics
+
+| **Data Source**         | **Table/Entity**       | **Metric**                               | **Field/Column Name**           | **Description**                                                                 |
+|-------------------------|------------------------|------------------------------------------|---------------------------------|---------------------------------------------------------------------------------|
+| **ServiceNow Incidents** | `incident`             | **Total Incidents Created**              | `number`                        | Total number of incidents created over a specified time period.                 |
+| **ServiceNow Incidents** | `incident`             | **Open Incidents**                       | `state`                         | Number of incidents in an "Open" state.                                         |
+| **ServiceNow Incidents** | `incident`             | **Closed Incidents**                     | `closed_at`                     | Number of incidents marked as "Closed" within a specified time period.          |
+| **ServiceNow Incidents** | `incident`             | **Incident Resolution Time**             | `resolved_at`, `opened_at`      | The time taken to resolve incidents, calculated as the difference between `resolved_at` and `opened_at`. |
+| **ServiceNow Incidents** | `incident`             | **Priority Distribution**                | `priority`                      | Distribution of incidents based on priority (e.g., P1, P2, P3, P4).             |
+| **ServiceNow Incidents** | `incident`             | **Incident Assignment Count**            | `assigned_to`                   | Number of incidents assigned to specific users or groups.                       |
+| **ServiceNow Incidents** | `incident`             | **Incident Reassignment Count**          | `reassignment_count`            | Number of times an incident has been reassigned to another user or group.       |
+| **ServiceNow Incidents** | `incident`             | **SLA Breaches**                         | `sla_breached`                  | Number of incidents where the Service Level Agreement (SLA) was breached.       |
+| **ServiceNow Incidents** | `incident`             | **Incident Reopened Count**              | `reopened`                      | Number of incidents that were reopened after being marked as resolved or closed. |
+| **ServiceNow Problems**  | `problem`              | **Total Problems Logged**                | `number`                        | Total number of problems logged within a specified time period.                 |
+| **ServiceNow Problems**  | `problem`              | **Open Problems**                        | `state`                         | Number of problems currently in an "Open" state.                                |
+| **ServiceNow Problems**  | `problem`              | **Closed Problems**                      | `closed_at`                     | Number of problems closed within a specified time period.                       |
+| **ServiceNow Changes**   | `change_request`       | **Total Change Requests Logged**         | `number`                        | Total number of change requests created within a specified time period.         |
+| **ServiceNow Changes**   | `change_request`       | **Change Requests Opened**               | `opened_at`                     | Number of change requests that were opened within a specified time period.      |
+| **ServiceNow Changes**   | `change_request`       | **Change Requests Closed**               | `closed_at`                     | Number of change requests that were closed within a specified time period.      |
+| **ServiceNow Changes**   | `change_request`       | **Change Requests by Priority**          | `priority`                      | Distribution of change requests by priority level (e.g., High, Medium, Low).    |
+| **ServiceNow Changes**   | `change_request`       | **Average Change Request Approval Time** | `approved_at`, `opened_at`      | The average time taken to approve change requests.                              |
+| **ServiceNow Requests**  | `sc_request`           | **Total Service Requests Logged**        | `number`                        | Total number of service requests submitted within a specified time period.      |
+| **ServiceNow Requests**  | `sc_request`           | **Open Service Requests**                | `state`                         | Number of service requests currently in an "Open" state.                        |
+| **ServiceNow Requests**  | `sc_request`           | **Closed Service Requests**              | `closed_at`                     | Number of service requests marked as "Closed".                                  |
+| **ServiceNow Tasks**     | `task`                 | **Total Tasks Created**                  | `number`                        | Total number of tasks created within a specified time period.                   |
+| **ServiceNow Tasks**     | `task`                 | **Open Tasks**                           | `state`                         | Number of tasks that are currently open.                                        |
+| **ServiceNow Tasks**     | `task`                 | **Closed Tasks**                         | `closed_at`                     | Number of tasks that were closed within a specified time period.                |
+| **ServiceNow Tasks**     | `task`                 | **Task Resolution Time**                 | `resolved_at`, `opened_at`      | Time taken to resolve tasks, calculated as the difference between `resolved_at` and `opened_at`. |
+
+---
+
+### Detailed Description of Key Metrics
+
+1. **Total Incidents Created**: The total number of incidents created in a given period. It provides a snapshot of how many issues are being reported.
+   - **Field/Column Name**: `number`
+   - **Data Source**: `incident`
+
+2. **Open Incidents**: The number of incidents that are currently in an open state. This is important for tracking the backlog of issues that need resolution.
+   - **Field/Column Name**: `state`
+   - **Data Source**: `incident`
+
+3. **Incident Resolution Time**: Measures the time taken to resolve an incident. This is a key metric for tracking the efficiency of the IT support team.
+   - **Field/Column Name**: `resolved_at`, `opened_at`
+   - **Data Source**: `incident`
+
+4. **Priority Distribution**: A breakdown of incidents by priority (e.g., P1, P2, P3, P4). This metric helps understand the severity of issues being reported.
+   - **Field/Column Name**: `priority`
+   - **Data Source**: `incident`
+
+5. **SLA Breaches**: The number of incidents that have breached the SLA, indicating delays in response or resolution.
+   - **Field/Column Name**: `sla_breached`
+   - **Data Source**: `incident`
+
+6. **Incident Reopened Count**: This tracks how many incidents were reopened after initially being closed. A high count could indicate incomplete resolutions or recurring issues.
+   - **Field/Column Name**: `reopened`
+   - **Data Source**: `incident`
+
+7. **Total Problems Logged**: The number of problems logged over time. Problems are underlying issues that may cause multiple incidents.
+   - **Field/Column Name**: `number`
+   - **Data Source**: `problem`
+
+8. **Change Requests by Priority**: A distribution of change requests by priority level. This is useful for change management and understanding the criticality of changes.
+   - **Field/Column Name**: `priority`
+   - **Data Source**: `change_request`
+
+---
+
+This table outlines key **ServiceNow** metrics and how they can be tracked for effective incident, problem, change, and task management. These metrics can be used to build dashboards in platforms like **Power BI** or **ServiceNow Reporting** to provide a comprehensive view of IT operations.
+
+
 ### Schema Representation for MoveIt Metrics and Data Sources
 
 
