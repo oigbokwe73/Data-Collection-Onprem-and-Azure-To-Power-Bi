@@ -1,6 +1,48 @@
 
 ### Schema Representation for MoveIt Metrics and Data Sources
 
+
+Below is a table for **Azure Identity Management Metrics**, which includes the **Category**, **Data Source**, **Table/Entity**, **Metric**, **Field/Column Name**, and a brief **Description** of each metric.
+
+| **Category**               | **Data Source**         | **Table/Entity**          | **Metric**                                     | **Field/Column Name**         | **Description**                                                                                   |
+|----------------------------|-------------------------|---------------------------|------------------------------------------------|-------------------------------|---------------------------------------------------------------------------------------------------|
+| **Sign-in Activity**        | Azure Active Directory  | SigninLogs                 | Total Sign-in Attempts                         | SigninAttempts                | Tracks the total number of sign-in attempts by users.                                              |
+| **Sign-in Activity**        | Azure Active Directory  | SigninLogs                 | Successful Sign-ins                            | SuccessfulSignins             | Tracks the number of successful user sign-ins.                                                     |
+| **Sign-in Activity**        | Azure Active Directory  | SigninLogs                 | Failed Sign-ins                                | FailedSignins                 | Tracks the number of failed sign-in attempts, useful for identifying issues or unauthorized access.|
+| **Conditional Access**      | Azure AD Conditional Access | ConditionalAccessLogs   | MFA Challenges                                 | MFAChallenges                 | Tracks the number of multi-factor authentication (MFA) challenges triggered by conditional access policies.|
+| **Conditional Access**      | Azure AD Conditional Access | ConditionalAccessLogs   | Conditional Access Failures                    | AccessFailures                | Logs instances where conditional access policies prevent a user from signing in.                  |
+| **Audit Logs**              | Azure Active Directory  | AuditLogs                  | User Creation Events                           | UserCreationEvents            | Tracks when new users are created in Azure AD.                                                     |
+| **Audit Logs**              | Azure Active Directory  | AuditLogs                  | Group Creation Events                          | GroupCreationEvents           | Tracks when new groups are created.                                                                |
+| **Audit Logs**              | Azure Active Directory  | AuditLogs                  | Role Assignment Changes                        | RoleAssignmentChanges         | Logs changes in role assignments, helping track changes in access control.                        |
+| **Security Logs**           | Azure Active Directory  | SecurityLogs               | Identity Protection Risk Detections            | RiskDetections                | Logs detected security risks associated with sign-ins (e.g., suspicious activity).                 |
+| **Security Logs**           | Azure Active Directory  | SecurityLogs               | High-Risk User Sign-ins                        | HighRiskSignins               | Logs sign-ins that are flagged as high risk due to security concerns.                              |
+| **Audit Logs**              | Azure Active Directory  | AuditLogs                  | Directory Changes                              | DirectoryChanges              | Tracks changes made to the directory, such as object deletions or modifications.                   |
+| **Audit Logs**              | Azure Active Directory  | AuditLogs                  | Application Consent Requests                   | ConsentRequests               | Logs when users or admins request consent for applications to access user information.             |
+| **Access Control**          | Azure Active Directory  | AccessControlLogs          | RBAC Policy Updates                            | RBACPolicyUpdates             | Logs changes to role-based access control (RBAC) policies.                                         |
+| **User Authentication**     | Azure Active Directory  | SigninLogs                 | Authentication Methods Used                    | AuthMethods                   | Tracks the types of authentication methods used, such as password, MFA, or biometrics.             |
+| **Security**                | Azure Active Directory  | SecurityLogs               | Access Control Violations                      | AccessViolations              | Logs instances where unauthorized access attempts were made.                                       |
+| **License Activity**        | Azure Active Directory  | AuditLogs                  | License Assignments                            | LicenseAssignments            | Tracks when licenses are assigned or removed from users.                                           |
+| **Device Management**       | Azure AD Device Management | DeviceLogs              | Device Registration Activity                   | DeviceRegistration            | Logs activities related to the registration and management of devices in Azure AD.                 |
+| **User Deletions**          | Azure Active Directory  | AuditLogs                  | User Deletions                                 | UserDeletions                 | Tracks when user accounts are deleted from Azure AD.                                               |
+| **Password Changes**        | Azure Active Directory  | SigninLogs                 | Password Reset Requests                        | PasswordResets                | Logs instances where users request a password reset.                                               |
+| **Privileged Identity Mgmt** | Azure AD Privileged Identity Management | PrivilegedLogs | Privileged Role Activations                    | RoleActivations               | Logs when privileged roles (e.g., global admin) are activated by users.                            |
+| **Privileged Identity Mgmt** | Azure AD Privileged Identity Management | PrivilegedLogs | Privileged Role Assignment Changes             | RoleAssignmentChanges         | Tracks when privileged role assignments are modified.                                              |
+| **Risky Sign-ins**          | Azure Active Directory  | SigninLogs                 | Risky Sign-ins Detected                        | RiskySignins                  | Logs sign-ins flagged by Azure Identity Protection as risky due to potential security threats.      |
+| **User Activity**           | Azure Active Directory  | AuditLogs                  | User Login Activity                            | UserLoginActivity             | Tracks user login frequency and activity.                                                          |
+| **User Status**             | Azure Active Directory  | UserStatusLogs             | Disabled User Accounts                         | DisabledAccounts              | Logs user accounts that have been disabled in Azure AD.                                            |
+| **Policy Enforcement**      | Azure AD Policy         | PolicyEnforcementLogs      | Enforced Policies                              | EnforcedPolicies              | Tracks when specific policies are enforced, such as password policies, MFA policies, etc.          |
+
+### Detailed Field/Column Name Descriptions:
+
+1. **SigninAttempts**: Tracks every login attempt, successful or failed.
+2. **MFAChallenges**: Logs the number of times MFA was required for access based on conditional access policies.
+3. **RiskDetections**: Identifies potential security risks associated with identity protection.
+4. **RoleAssignmentChanges**: Captures modifications to user roles, including adding or removing administrative privileges.
+5. **EnforcedPolicies**: Lists the policies that were applied, such as password complexity rules or security requirements.
+
+This table provides a comprehensive set of metrics for monitoring identity management activities, security events, and user authentication, which are critical for managing and securing Azure Active Directory environments.
+
+
 In this table, we will represent the schema for metrics related to **MoveIt** and its associated data sources, including **Azure Blob Storage**, **Azure SQL Database**, **Azure Monitor**, and **Power BI** for reporting.
 
 The schema includes key metrics such as the number of file transfers, success/failure logs, errors, and system performance. Each data source is mapped to specific tables and fields for comprehensive log management and reporting.
