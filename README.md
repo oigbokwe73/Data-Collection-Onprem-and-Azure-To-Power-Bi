@@ -1,51 +1,66 @@
+Here’s a detailed table for **Azure Monitor Metrics**, including data sources, table/entities, metric names, field/column names, and descriptions. This table outlines key metrics tracked by **Azure Monitor** for Azure services like Storage, Compute, Networking, and Application Services.
 
-Data Source	Table/Entity	Metric	Field/Column Name	Description
-Azure Virtual Machines	VMPerformanceLogs	CPU Utilization	CpuUsagePercentage	Percentage of CPU resources used by the virtual machine.
-VMPerformanceLogs	Memory Usage	MemoryUsageMB	The amount of memory consumed by the virtual machine in MB.
-VMPerformanceLogs	Disk I/O (Read)	DiskIOReadMBps	Read speed of the disk (in MB per second) on the virtual machine.
-VMPerformanceLogs	Disk I/O (Write)	DiskIOWriteMBps	Write speed of the disk (in MB per second) on the virtual machine.
-VMPerformanceLogs	Network Ingress	NetworkIngressBytes	The amount of inbound data (in bytes) transferred through the virtual machine’s network interface.
-VMPerformanceLogs	Network Egress	NetworkEgressBytes	The amount of outbound data (in bytes) transferred through the virtual machine’s network interface.
-Azure Blob Storage	BlobOperationsLogs	Total Blob Uploads	BlobUploadCount	Total number of blob uploads in the container.
-BlobOperationsLogs	Total Blob Downloads	BlobDownloadCount	Total number of blob downloads from the container.
-BlobOperationsLogs	Failed Blob Upload Attempts	BlobUploadFailures	The number of failed attempts to upload blobs.
-BlobCapacityLogs	Blob Container Capacity (Bytes)	BlobCapacity	The total storage capacity used by blobs within the container, measured in bytes.
-BlobLatencyLogs	Blob Upload Latency (ms)	BlobUploadLatency	The average time taken to upload blobs in milliseconds.
-BlobLatencyLogs	Blob Download Latency (ms)	BlobDownloadLatency	The average time taken to download blobs in milliseconds.
-Azure File Storage	FileShareOperationsLogs	Total File Uploads	FileUploadCount	Total number of files uploaded to the file share.
-FileShareOperationsLogs	Total File Downloads	FileDownloadCount	Total number of files downloaded from the file share.
-FileShareOperationsLogs	Failed File Upload Attempts	FileUploadFailures	The number of failed attempts to upload files to the file share.
-FileShareCapacityLogs	File Share Capacity (Bytes)	FileShareCapacity	The total storage capacity used by files in the file share, measured in bytes.
-FileShareLatencyLogs	File Upload Latency (ms)	FileUploadLatency	The average time taken to upload files in milliseconds.
-FileShareLatencyLogs	File Download Latency (ms)	FileDownloadLatency	The average time taken to download files in milliseconds.
-Azure Queue Storage	QueueOperationsLogs	Messages Enqueued	MessagesEnqueued	The number of messages enqueued in the Azure queue.
-QueueOperationsLogs	Messages Dequeued	MessagesDequeued	The number of messages dequeued from the Azure queue.
-QueueOperationsLogs	Failed Enqueue Attempts	EnqueueFailures	The number of failed attempts to enqueue messages into the queue.
-QueueOperationsLogs	Failed Dequeue Attempts	DequeueFailures	The number of failed attempts to dequeue messages from the queue.
-QueueCapacityLogs	Queue Capacity (Messages)	QueueCapacity	The maximum number of messages the queue can hold.
-QueueLatencyLogs	Message Enqueue Latency (ms)	EnqueueLatency	The average time taken to enqueue messages into the queue.
-QueueLatencyLogs	Message Dequeue Latency (ms)	DequeueLatency	The average time taken to dequeue messages from the queue.
-Azure Table Storage	TableOperationsLogs	Table Inserts	TableInserts	The number of entities inserted into the Azure Table Storage.
-TableOperationsLogs	Table Queries	TableQueries	The number of query operations executed on Azure Table Storage.
-TableOperationsLogs	Table Updates	TableUpdates	The number of updates made to entities in Azure Table Storage.
-TableOperationsLogs	Table Deletes	TableDeletes	The number of entities deleted from Azure Table Storage.
-TableOperationsLogs	Failed Inserts	InsertFailures	The number of failed insert operations in the table.
-TableCapacityLogs	Table Capacity (Entities)	TableCapacity	The total capacity of the table storage in terms of the number of entities it can hold.
-TableLatencyLogs	Table Insert Latency (ms)	InsertLatency	The average time taken to insert an entity into Azure Table Storage.
-TableLatencyLogs	Table Query Latency (ms)	QueryLatency	The average time taken to query entities in Azure Table Storage.
-Azure SQL Database	SQLPerformanceLogs	DTU (Database Transaction Units) Utilization	DtuUsage	The percentage of DTU usage (computing resource utilization) in an Azure SQL Database.
-SQLPerformanceLogs	Database Connection Failures	ConnectionFailures	The number of failed attempts to connect to the Azure SQL Database.
-SQLPerformanceLogs	Deadlocks Detected	DeadlockCount	The number of deadlocks detected during database operations.
-SQLPerformanceLogs	Query Execution Time (ms)	QueryExecutionTime	The time taken to execute SQL queries, measured in milliseconds.
-Azure Functions	FunctionOperationsLogs	Total Function Invocations	FunctionInvocationCount	The total number of times the Azure Function was invoked.
-FunctionOperationsLogs	Function Execution Time (ms)	FunctionExecutionTime	The average time taken to execute the function, measured in milliseconds.
-FunctionOperationsLogs	Function Failures	FunctionFailureCount	The number of failed function executions.
-FunctionOperationsLogs	Function Memory Usage (MB)	FunctionMemoryUsage	The amount of memory consumed by the Azure Function during execution.
-Azure Event Hub	EventHubOperationsLogs	Total Events Published	EventPublishedCount	The number of events published to the Azure Event Hub.
-EventHubOperationsLogs	Total Events Consumed	EventConsumedCount	The number of events consumed from the Azure Event Hub.
-EventHubOperationsLogs	Event Publish Failures	PublishFailures	The number of failed attempts to publish events to the Event Hub.
-EventHubLatencyLogs	Event Publish Latency (ms)	PublishLatency	The average time taken to publish events to the Event Hub, measured in milliseconds.
+### Table: Azure Monitor Metrics
 
+| **Data Source**             | **Table/Entity**      | **Metric**                                      | **Field/Column Name**           | **Description**                                                                                           |
+|-----------------------------|-----------------------|-------------------------------------------------|---------------------------------|-----------------------------------------------------------------------------------------------------------|
+| **Azure Virtual Machines**   | VMPerformanceLogs     | CPU Utilization                                 | `CpuUsagePercentage`            | Percentage of CPU resources used by the virtual machine.                                                   |
+|                             | VMPerformanceLogs     | Memory Usage                                    | `MemoryUsageMB`                 | The amount of memory consumed by the virtual machine in MB.                                                |
+|                             | VMPerformanceLogs     | Disk I/O (Read)                                 | `DiskIOReadMBps`                | Read speed of the disk (in MB per second) on the virtual machine.                                          |
+|                             | VMPerformanceLogs     | Disk I/O (Write)                                | `DiskIOWriteMBps`               | Write speed of the disk (in MB per second) on the virtual machine.                                         |
+|                             | VMPerformanceLogs     | Network Ingress                                 | `NetworkIngressBytes`           | The amount of inbound data (in bytes) transferred through the virtual machine’s network interface.         |
+|                             | VMPerformanceLogs     | Network Egress                                  | `NetworkEgressBytes`            | The amount of outbound data (in bytes) transferred through the virtual machine’s network interface.        |
+| **Azure Blob Storage**       | BlobOperationsLogs    | Total Blob Uploads                              | `BlobUploadCount`               | Total number of blob uploads in the container.                                                             |
+|                             | BlobOperationsLogs    | Total Blob Downloads                            | `BlobDownloadCount`             | Total number of blob downloads from the container.                                                         |
+|                             | BlobOperationsLogs    | Failed Blob Upload Attempts                     | `BlobUploadFailures`            | The number of failed attempts to upload blobs.                                                             |
+|                             | BlobCapacityLogs      | Blob Container Capacity (Bytes)                 | `BlobCapacity`                  | The total storage capacity used by blobs within the container, measured in bytes.                          |
+|                             | BlobLatencyLogs       | Blob Upload Latency (ms)                        | `BlobUploadLatency`             | The average time taken to upload blobs in milliseconds.                                                    |
+|                             | BlobLatencyLogs       | Blob Download Latency (ms)                      | `BlobDownloadLatency`           | The average time taken to download blobs in milliseconds.                                                  |
+| **Azure File Storage**       | FileShareOperationsLogs| Total File Uploads                              | `FileUploadCount`               | Total number of files uploaded to the file share.                                                          |
+|                             | FileShareOperationsLogs| Total File Downloads                            | `FileDownloadCount`             | Total number of files downloaded from the file share.                                                      |
+|                             | FileShareOperationsLogs| Failed File Upload Attempts                     | `FileUploadFailures`            | The number of failed attempts to upload files to the file share.                                           |
+|                             | FileShareCapacityLogs | File Share Capacity (Bytes)                     | `FileShareCapacity`             | The total storage capacity used by files in the file share, measured in bytes.                             |
+|                             | FileShareLatencyLogs  | File Upload Latency (ms)                        | `FileUploadLatency`             | The average time taken to upload files in milliseconds.                                                    |
+|                             | FileShareLatencyLogs  | File Download Latency (ms)                      | `FileDownloadLatency`           | The average time taken to download files in milliseconds.                                                  |
+| **Azure Queue Storage**      | QueueOperationsLogs   | Messages Enqueued                               | `MessagesEnqueued`              | The number of messages enqueued in the Azure queue.                                                        |
+|                             | QueueOperationsLogs   | Messages Dequeued                               | `MessagesDequeued`              | The number of messages dequeued from the Azure queue.                                                      |
+|                             | QueueOperationsLogs   | Failed Enqueue Attempts                         | `EnqueueFailures`               | The number of failed attempts to enqueue messages into the queue.                                          |
+|                             | QueueOperationsLogs   | Failed Dequeue Attempts                         | `DequeueFailures`               | The number of failed attempts to dequeue messages from the queue.                                          |
+|                             | QueueCapacityLogs     | Queue Capacity (Messages)                       | `QueueCapacity`                 | The maximum number of messages the queue can hold.                                                         |
+|                             | QueueLatencyLogs      | Message Enqueue Latency (ms)                    | `EnqueueLatency`                | The average time taken to enqueue messages into the queue.                                                 |
+|                             | QueueLatencyLogs      | Message Dequeue Latency (ms)                    | `DequeueLatency`                | The average time taken to dequeue messages from the queue.                                                 |
+| **Azure Table Storage**      | TableOperationsLogs   | Table Inserts                                   | `TableInserts`                  | The number of entities inserted into the Azure Table Storage.                                               |
+|                             | TableOperationsLogs   | Table Queries                                   | `TableQueries`                  | The number of query operations executed on Azure Table Storage.                                            |
+|                             | TableOperationsLogs   | Table Updates                                   | `TableUpdates`                  | The number of updates made to entities in Azure Table Storage.                                             |
+|                             | TableOperationsLogs   | Table Deletes                                   | `TableDeletes`                  | The number of entities deleted from Azure Table Storage.                                                   |
+|                             | TableOperationsLogs   | Failed Inserts                                  | `InsertFailures`                | The number of failed insert operations in the table.                                                       |
+|                             | TableCapacityLogs     | Table Capacity (Entities)                       | `TableCapacity`                 | The total capacity of the table storage in terms of the number of entities it can hold.                    |
+|                             | TableLatencyLogs      | Table Insert Latency (ms)                       | `InsertLatency`                 | The average time taken to insert an entity into Azure Table Storage.                                       |
+|                             | TableLatencyLogs      | Table Query Latency (ms)                        | `QueryLatency`                  | The average time taken to query entities in Azure Table Storage.                                           |
+| **Azure SQL Database**       | SQLPerformanceLogs    | DTU (Database Transaction Units) Utilization    | `DtuUsage`                      | The percentage of DTU usage (computing resource utilization) in an Azure SQL Database.                     |
+|                             | SQLPerformanceLogs    | Database Connection Failures                    | `ConnectionFailures`            | The number of failed attempts to connect to the Azure SQL Database.                                        |
+|                             | SQLPerformanceLogs    | Deadlocks Detected                              | `DeadlockCount`                 | The number of deadlocks detected during database operations.                                               |
+|                             | SQLPerformanceLogs    | Query Execution Time (ms)                       | `QueryExecutionTime`            | The time taken to execute SQL queries, measured in milliseconds.                                           |
+| **Azure Functions**          | FunctionOperationsLogs| Total Function Invocations                      | `FunctionInvocationCount`       | The total number of times the Azure Function was invoked.                                                  |
+|                             | FunctionOperationsLogs| Function Execution Time (ms)                    | `FunctionExecutionTime`         | The average time taken to execute the function, measured in milliseconds.                                  |
+|                             | FunctionOperationsLogs| Function Failures                               | `FunctionFailureCount`          | The number of failed function executions.                                                                  |
+|                             | FunctionOperationsLogs| Function Memory Usage (MB)                      | `FunctionMemoryUsage`           | The amount of memory consumed by the Azure Function during execution.                                      |
+| **Azure Event Hub**          | EventHubOperationsLogs| Total Events Published                          | `EventPublishedCount`           | The number of events published to the Azure Event Hub.                                                     |
+|                             | EventHubOperationsLogs| Total Events Consumed                           | `EventConsumedCount`            | The number of events consumed from the Azure Event Hub.                                                    |
+|                             | EventHubOperationsLogs| Event Publish Failures                          | `PublishFailures`               | The number of failed attempts to publish events to the Event Hub.                                          |
+|                             | EventHubLatencyLogs   | Event Publish Latency (ms)                      | `PublishLatency`                | The average time taken to publish events to the Event Hub, measured in milliseconds.                       |
+
+---
+
+### Detailed Description of Key Columns:
+
+- **Data Source**: The specific Azure service from which metrics are collected (e.g., Virtual Machines, Blob Storage, Queue Storage, etc.).
+- **Table/Entity**: The log table or entity within Azure Monitor that stores the metrics for that service.
+- **Metric**: The specific performance or operational metric being tracked (e.g., CPU Utilization, Blob Uploads, Queue Capacity).
+- **Field/Column Name**: The name of the field or column within the log that holds the value for the metric.
+- **Description**: A brief explanation of what the metric represents or tracks, helping in interpreting the data.
+
+This table provides a comprehensive overview of the critical performance and operational metrics tracked by **Azure Monitor** across different Azure services. It is essential for monitoring, troubleshooting, and optimizing cloud resources.
 
 
 
