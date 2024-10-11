@@ -1,3 +1,4 @@
+![image](https://github.com/user-attachments/assets/b419da63-365a-4dbc-b2df-bc6572df7fdd)
 
 Here is a detailed table for **ServiceNow Metrics** that includes the data source, table/entity, metrics, field/column names, and descriptions of each metric. These metrics can be used to track performance, incident management, and system health within **ServiceNow**.
 
