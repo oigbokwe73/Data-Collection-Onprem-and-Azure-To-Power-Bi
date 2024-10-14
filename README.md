@@ -68,7 +68,8 @@ This table provides a comprehensive overview of the critical performance and ope
 
 ![image](https://github.com/user-attachments/assets/e3361a24-c446-4d78-b81c-0edfcf315ff7)
 
-![image](https://github.com/user-attachments/assets/5d819d42-a58c-4eda-95d7-ab6034f06e58)
+![image](https://github.com/user-attachments/assets/9075185a-19af-4186-9923-2f0d729910e3)
+
 
 
 
