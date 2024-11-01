@@ -62,14 +62,15 @@ Here’s a detailed table for **Azure Monitor Metrics**, including data sources,
 
 This table provides a comprehensive overview of the critical performance and operational metrics tracked by **Azure Monitor** across different Azure services. It is essential for monitoring, troubleshooting, and optimizing cloud resources.
 
-![image](https://github.com/user-attachments/assets/3a0cae00-b712-4bf9-b482-d6adf1f42b21)
+![image](https://github.com/user-attachments/assets/50f5fcdc-723f-4143-8344-817900e8e0bb)
 
 
 
 ![image](https://github.com/user-attachments/assets/967b1487-aa26-4360-b070-dad5b9d751d9)
 
 
-![image](https://github.com/user-attachments/assets/6fcab7b0-4876-449d-a3b1-379a42ab4a74)
+![image](https://github.com/user-attachments/assets/34e86e13-c1d3-4f22-9ec7-29bdc3f3cf7e)
+
 
 ![image](https://github.com/user-attachments/assets/32ade288-9c21-45fb-8d55-e6fc430a64d2)
 
