@@ -1,3 +1,46 @@
+
+
+Here is a table highlighting **key metrics** across three areas: **SIP (System Integration Platform)**, **MoveIt**, and the **MES (Medicaid Enterprise System) Portal**. Each metric provides critical insights into performance, reliability, and security.
+
+| **Area**         | **Metric**                            | **Description**                                                                                  | **Threshold/Goal**        | **Data Source**                      | **Frequency**         |
+|------------------|---------------------------------------|--------------------------------------------------------------------------------------------------|----------------------------|--------------------------------------|------------------------|
+| **SIP**          | **API Response Time (ms)**           | Measures time taken for SIP APIs to respond to requests.                                         | < 200 ms                   | Azure API Management, App Insights   | Real-time             |
+| **SIP**          | **Transaction Throughput**           | Number of successful business transactions processed per minute.                                 | 100 transactions/min       | SIP Logs, Azure Monitor              | Continuous            |
+| **SIP**          | **Error Rate (%)**                   | Percentage of errors per request or transaction.                                                 | < 1%                       | Azure Log Analytics, App Insights    | Real-time             |
+| **SIP**          | **Interface Availability (%)**       | Measures uptime for SIP integrations and services.                                               | 99.9%                       | Azure Monitor                        | Real-time             |
+| **SIP**          | **Data Integration Latency (ms)**    | Time taken for data to be transferred across integrated systems within SIP.                      | < 300 ms                    | SIP Logs, Azure Monitor              | Real-time             |
+
+| **MoveIt**       | **File Transfer Success Rate (%)**   | Measures the percentage of successful file transfers.                                            | > 99%                       | MoveIt Logs, Azure Monitor           | Real-time             |
+| **MoveIt**       | **Transfer Duration (seconds)**      | Time taken to complete each file transfer.                                                       | < 120 seconds               | MoveIt Logs                          | Per Transfer          |
+| **MoveIt**       | **Failed Transfer Rate (%)**         | Percentage of failed file transfers.                                                             | < 1%                        | MoveIt Logs                          | Real-time             |
+| **MoveIt**       | **User Authentication Success Rate** | Percentage of successful user logins to MoveIt interface.                                        | 100%                        | Azure Active Directory               | Real-time             |
+| **MoveIt**       | **Checksum Failure Count**           | Number of file transfers with checksum verification failures.                                    | 0 failures                  | MoveIt Logs                          | Real-time             |
+
+| **MES Portal**   | **Portal Uptime (%)**                | Measures the overall availability of the MES portal to users.                                    | 99.9%                       | Azure Monitor, App Insights          | Real-time             |
+| **MES Portal**   | **User Login Success Rate (%)**      | Percentage of successful logins to the MES portal.                                               | > 98%                       | Azure AD Logs, App Insights          | Real-time             |
+| **MES Portal**   | **Page Load Time (ms)**              | Time taken to load portal pages for users.                                                       | < 2 seconds                 | Azure Application Insights           | Real-time             |
+| **MES Portal**   | **Service Desk Ticket Resolution Time (hrs)** | Average time taken to resolve service desk tickets logged via the MES portal.             | < 4 hours                   | ServiceNow, SIP Logs                 | Daily                 |
+| **MES Portal**   | **High-Risk User Sign-ins**          | Number of user sign-ins flagged as high-risk.                                                    | 0                            | Azure Active Directory               | Real-time             |
+
+---
+
+### Explanation of Key Metrics by Area:
+
+1. **SIP (System Integration Platform)**:
+   - Focuses on **API performance, transaction throughput, and integration reliability**.
+   - Tracks critical integration points to ensure smooth data flow between systems.
+
+2. **MoveIt**:
+   - Measures **file transfer success rates, duration, and authentication success**.
+   - Ensures secure file transfers and data integrity (via checksum validation).
+
+3. **MES Portal**:
+   - Emphasizes **portal availability, page load performance, and user security**.
+   - Tracks **service desk management** to ensure efficient issue resolution.
+
+This table provides a snapshot of core metrics needed for monitoring and managing each area effectively. These metrics are essential for ensuring performance, security, and reliability within the MES environment.
+
+
 Here’s a detailed table for **Azure Monitor Metrics**, including data sources, table/entities, metric names, field/column names, and descriptions. This table outlines key metrics tracked by **Azure Monitor** for Azure services like Storage, Compute, Networking, and Application Services.
 
 A large manufacturing enterprise wants to build a **System Health Dashboard** in Power BI to monitor and analyze the performance and reliability of its critical applications and infrastructure. This dashboard will pull data from **Azure Log Analytics** and an **Azure SQL Database** to consolidate logs from multiple sources, including the **MES (Manufacturing Execution System) Portal**, **SIP (Session Initiation Protocol)**, and **MoveIT** file transfer service. Logs are pushed to **Azure Log Analytics** and **Azure Storage** from these applications, where they capture system events, application usage, and any errors encountered. An **Azure Function App** is triggered periodically to retrieve specific log entries from Log Analytics and Azure Storage, transforming and storing them in SQL for structured query access and historical analysis. 
