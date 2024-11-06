@@ -1,5 +1,62 @@
 
 
+
+
+Here is a detailed table outlining **Role-Based Access Control (RBAC)** considerations for the **Centralized Alabama Receipt Eligibility System (CARES)**, **Enterprise Data Services (EDS)**, **Provider Management (PM)**, and **AMMIS/CPMS** systems. This table specifies the roles, access levels, and considerations for **Service Level Agreements (SLAs)**, including who should have access.
+
+| **System**           | **Role**                        | **Role Description**                                                                 | **Access Level**                  | **SLA Access**      | **RBAC Considerations**                                                                                       |
+|----------------------|---------------------------------|--------------------------------------------------------------------------------------|-----------------------------------|---------------------|---------------------------------------------------------------------------------------------------------------|
+| **CARES**            | **System Administrator**        | Oversees system configurations, maintenance, and user management.                    | Full Access                       | Yes                 | Requires access to all areas for administrative tasks; limited to high-security roles with background checks. |
+|                      | **Business Operations**         | Handles daily operations and eligibility processing.                                 | Read/Write on Eligibility Data    | Yes                 | SLA access to understand system performance impacting business workflows.                                      |
+|                      | **Eligibility Specialist**      | Assesses eligibility applications and performs data updates.                         | Read/Write on Eligibility Data    | No                  | Access limited to case-specific data; no SLA access needed for operational role.                              |
+|                      | **Compliance Auditor**          | Reviews eligibility determinations for compliance with policies.                     | Read-Only on All Data             | Yes                 | SLA access for compliance review; audit logs enabled for transparency.                                        |
+|                      | **Support Staff**               | Provides technical support to CARES users.                                           | Limited Support Access            | No                  | Limited to technical troubleshooting data; no need for SLA details.                                           |
+
+| **System**           | **Role**                        | **Role Description**                                                                 | **Access Level**                  | **SLA Access**      | **RBAC Considerations**                                                                                       |
+|----------------------|---------------------------------|--------------------------------------------------------------------------------------|-----------------------------------|---------------------|---------------------------------------------------------------------------------------------------------------|
+| **EDS (Enterprise Data Services)** | **Data Architect**          | Designs and manages EDS data architecture.                                            | Full Access to Data Models        | Yes                 | SLA access for data performance insights; high access required for data integration tasks.                    |
+|                      | **Data Analyst**                | Analyzes data for reporting and insights for CARES, PM, and AMMIS/CPMS.               | Read-Only Access to Analytics     | Yes                 | SLA access for understanding data availability and latency; sensitive data access limited to analytics views. |
+|                      | **Data Engineer**               | Responsible for data ingestion, transformation, and storage management.               | Read/Write on Data Pipelines      | No                  | No SLA access needed for data pipeline configuration; access limited to data ingestion components.            |
+|                      | **Compliance Auditor**          | Verifies data processing compliance with regulatory standards.                        | Read-Only on All Data             | Yes                 | Requires SLA access for compliance on data availability and accuracy; logs all access for audits.             |
+|                      | **IT Operations**               | Monitors EDS performance, backups, and troubleshooting.                               | Limited Operational Access        | Yes                 | SLA access required to track uptime and maintenance metrics.                                                  |
+
+| **System**           | **Role**                        | **Role Description**                                                                 | **Access Level**                  | **SLA Access**      | **RBAC Considerations**                                                                                       |
+|----------------------|---------------------------------|--------------------------------------------------------------------------------------|-----------------------------------|---------------------|---------------------------------------------------------------------------------------------------------------|
+| **Provider Management (PM)** | **Provider Manager**          | Manages provider records, registrations, and updates.                                | Read/Write on Provider Data       | Yes                 | SLA access to understand how system availability affects provider access and updates.                        |
+|                      | **Compliance Specialist**       | Reviews provider compliance with policies and manages regulatory reporting.           | Read-Only Access on Compliance    | Yes                 | SLA access needed to assess compliance review timelines and system reliability.                               |
+|                      | **Provider Support Staff**      | Provides assistance to providers for application submissions and updates.             | Limited Support Access            | No                  | No SLA access needed; focus on technical support for providers without access to full records.               |
+|                      | **Finance Analyst**             | Reviews provider payment data and manages financial reports.                          | Read-Only on Financial Records    | Yes                 | SLA access to ensure financial data availability for timely payment processing and reporting.                |
+|                      | **IT Operations**               | Monitors PM system health, including updates, backups, and security.                  | Full System Monitoring Access     | Yes                 | Requires SLA access for performance metrics, uptime, and response times for support escalation.              |
+
+| **System**           | **Role**                        | **Role Description**                                                                 | **Access Level**                  | **SLA Access**      | **RBAC Considerations**                                                                                       |
+|----------------------|---------------------------------|--------------------------------------------------------------------------------------|-----------------------------------|---------------------|---------------------------------------------------------------------------------------------------------------|
+| **AMMIS/CPMS**       | **System Administrator**        | Oversees full AMMIS/CPMS system operations and maintenance.                           | Full Access                       | Yes                 | Full SLA access for system performance, uptime, and response tracking.                                        |
+|                      | **Claims Processor**            | Reviews, validates, and processes claims submissions.                                | Read/Write on Claims Data         | No                  | Access limited to claims data with no SLA requirements; focus on daily operational data only.                |
+|                      | **Compliance Auditor**          | Ensures AMMIS/CPMS claims adhere to standards; reviews claims for policy compliance.  | Read-Only on Claims Data          | Yes                 | SLA access for compliance on claims processing timelines and system reliability.                             |
+|                      | **Financial Analyst**           | Analyzes payment transactions and manages claims financial reporting.                 | Read-Only on Financial Data       | Yes                 | Requires SLA access to track data availability and processing accuracy, especially for end-of-month reporting.|
+|                      | **IT Support Staff**            | Provides technical support for claims processing and data integrity.                  | Limited Technical Access          | No                  | No SLA access needed; access limited to technical troubleshooting and basic system support.                  |
+
+---
+
+### **Additional RBAC Considerations**:
+
+1. **SLA Access**:
+   - **System Administrators**, **Compliance Auditors**, **IT Operations**, and roles involved in **business and finance** functions require SLA access across these systems.
+   - SLA access allows key stakeholders to monitor system performance, identify issues, and ensure uptime meets business requirements.
+
+2. **Access Restrictions**:
+   - **Eligibility Specialists** and **Claims Processors** are limited to only the data they need to perform daily tasks, with no SLA access.
+   - Support roles have limited access strictly for technical support and troubleshooting, without permissions to modify data or view SLAs.
+
+3. **Security and Compliance**:
+   - All access is logged and monitored for security and compliance.
+   - **Compliance Auditors** across systems have read-only access to ensure objectivity in audits.
+  
+4. **Sensitive Data Protection**:
+   - Financial and personal data, especially in **Provider Management** and **AMMIS/CPMS**, are protected through strict access controls and regular audits.
+
+This table provides a comprehensive approach to RBAC for critical systems, ensuring that each role has access to the appropriate resources while maintaining a high standard of security and regulatory compliance.
+
 Here is a table highlighting **key metrics** across three areas: **SIP (System Integration Platform)**, **MoveIt**, and the **MES (Medicaid Enterprise System) Portal**. Each metric provides critical insights into performance, reliability, and security.
 
 | **Area**         | **Metric**                            | **Description**                                                                                  | **Threshold/Goal**        | **Data Source**                      | **Frequency**         |
