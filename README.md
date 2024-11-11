@@ -1,3 +1,188 @@
+
+Here’s a proposed set of **metrics by area** for each of the key components: **System Integration Platform (SIP)**, **Managed File Transfer System (MFTS)**, **Customer Care Management System (CCMS)**, **Incident Management (Incidents)**, and **Identity Management (IDM)**. Each area includes specific metrics and Service Level Agreements (SLAs), as well as **Business Metrics** for tracking performance and impact.
+
+---
+
+### **1. System Integration Platform (SIP)**
+
+| **Metric**                        | **Description**                                                                 | **SLA**                             | **Purpose**                                               |
+|-----------------------------------|---------------------------------------------------------------------------------|-------------------------------------|-----------------------------------------------------------|
+| **API Uptime (%)**                | Measures availability of SIP APIs.                                              | 99.9%                               | Ensures APIs are consistently available for integrations. |
+| **Average API Response Time (ms)**| Time taken for SIP APIs to respond to requests.                                 | < 200 ms                            | Tracks responsiveness, ensuring efficient integrations.   |
+| **Data Integration Latency (ms)** | Time taken to transfer data between systems.                                    | < 300 ms                            | Monitors data flow latency to maintain real-time accuracy.|
+| **Transaction Throughput**        | Number of transactions processed per minute.                                    | 100 transactions/min                | Ensures SIP handles required load to avoid bottlenecks.   |
+| **Error Rate (%)**                | Percentage of errors across API requests and data transfers.                    | < 1%                                | Identifies and minimizes integration errors.              |
+
+---
+
+### **2. Managed File Transfer System (MFTS)**
+
+| **Metric**                        | **Description**                                                                 | **SLA**                             | **Purpose**                                               |
+|-----------------------------------|---------------------------------------------------------------------------------|-------------------------------------|-----------------------------------------------------------|
+| **File Transfer Success Rate (%)**| Measures percentage of successful file transfers.                               | > 99%                               | Ensures reliable and accurate data transfer.              |
+| **Average Transfer Duration (sec)** | Time taken to complete a file transfer.                                         | < 120 seconds                       | Tracks efficiency of file transfers.                      |
+| **Failed Transfer Rate (%)**      | Percentage of file transfers that failed.                                       | < 1%                                | Identifies issues with transfer reliability.              |
+| **Checksum Failure Count**        | Number of transfers with failed checksum validations.                           | 0 failures                          | Ensures data integrity across transfers.                  |
+| **Data Volume Transferred (GB)**  | Total volume of data transferred per day/week.                                  | N/A                                 | Tracks load on the transfer system for capacity planning. |
+
+---
+
+### **3. Customer Care Management System (CCMS)**
+
+| **Metric**                        | **Description**                                                                 | **SLA**                             | **Purpose**                                               |
+|-----------------------------------|---------------------------------------------------------------------------------|-------------------------------------|-----------------------------------------------------------|
+| **Portal Uptime (%)**             | Measures availability of the CCMS portal for users.                             | 99.9%                               | Ensures constant availability for customer access.        |
+| **User Login Success Rate (%)**   | Percentage of successful user logins to the portal.                             | > 98%                               | Monitors access reliability for end users.                |
+| **Average Page Load Time (ms)**   | Time taken for CCMS portal pages to load.                                       | < 2 seconds                         | Tracks portal performance for user experience.            |
+| **Incident Resolution Time (hrs)**| Average time to resolve incidents affecting CCMS.                               | < 4 hours                           | Ensures quick issue resolution to support users.          |
+| **Customer Satisfaction (CSAT)**  | Customer feedback score post-interaction with CCMS.                             | > 90%                               | Tracks customer satisfaction and identifies improvement areas. |
+
+---
+
+### **4. Incident Management (Incidents)**
+
+| **Metric**                        | **Description**                                                                 | **SLA**                             | **Purpose**                                               |
+|-----------------------------------|---------------------------------------------------------------------------------|-------------------------------------|-----------------------------------------------------------|
+| **Ticket Resolution Time (hrs)**  | Average time taken to resolve service desk tickets.                             | < 4 hours                           | Ensures efficient handling of support requests.           |
+| **Open Tickets**                  | Number of open or unresolved tickets.                                           | < 5                                 | Keeps track of active issues to prioritize resolution.    |
+| **High-Priority Tickets**         | Number of high-priority tickets requiring immediate attention.                  | 0                                   | Ensures critical issues are addressed immediately.        |
+| **Escalated Tickets**             | Percentage of tickets escalated for higher support.                             | < 5%                                | Monitors complexity and support team effectiveness.       |
+| **First Contact Resolution (%)**  | Percentage of tickets resolved at the first point of contact.                   | > 80%                               | Measures efficiency in support handling.                  |
+
+---
+
+### **5. Identity Management (IDM)**
+
+| **Metric**                        | **Description**                                                                 | **SLA**                             | **Purpose**                                               |
+|-----------------------------------|---------------------------------------------------------------------------------|-------------------------------------|-----------------------------------------------------------|
+| **Authentication Success Rate (%)** | Percentage of successful user authentications.                                 | 100%                                | Ensures secure and reliable authentication.               |
+| **Failed Login Attempts**         | Number of failed login attempts across the system.                             | < 5 per hour                        | Identifies potential unauthorized access attempts.        |
+| **MFA Success Rate (%)**          | Percentage of successful Multi-Factor Authentication challenges.               | > 99%                               | Ensures secure access and compliance.                     |
+| **Account Lockouts**              | Number of accounts temporarily locked due to failed login attempts.            | 0                                   | Tracks security protocol effectiveness.                   |
+| **High-Risk User Sign-ins**       | Number of user sign-ins flagged as high-risk.                                  | 0                                   | Identifies and mitigates security risks.                  |
+
+---
+
+### **Business Metrics (Across SIP, MFTS, CCMS, Incidents, and IDM)**
+
+| **Metric**                        | **Description**                                                                 | **System**                          | **SLA**                             | **Purpose**                                               |
+|-----------------------------------|---------------------------------------------------------------------------------|-------------------------------------|-------------------------------------|-----------------------------------------------------------|
+| **Uptime (%)**                    | Measures the uptime for business-critical applications across MES.              | SIP, MFTS, CCMS                     | 99.9%                               | Ensures continuous availability for business operations.  |
+| **Customer Satisfaction (CSAT)**  | Average satisfaction score across customer interactions with CCMS and incidents. | CCMS, Incidents                     | > 90%                               | Monitors customer satisfaction and highlights improvement areas. |
+| **Transaction Volume**            | Total volume of transactions processed across SIP and MFTS.                     | SIP, MFTS                           | N/A                                 | Tracks load and helps in capacity planning.               |
+| **Security Incident Response Time (hrs)** | Average response time to security incidents across IDM and SIP.           | IDM, SIP                            | < 2 hours                           | Ensures timely action on security threats.                |
+| **Compliance Audit Success Rate** | Percentage of compliance checks passed across MES systems.                      | SIP, CCMS, IDM                      | 100%                                | Tracks adherence to regulatory requirements.              |
+
+---
+
+### **Summary**
+
+This **comprehensive set of metrics** provides a detailed view of the performance, reliability, and security across SIP, MFTS, CCMS, Incidents, and IDM. These metrics and SLAs enable:
+
+1. **Proactive Monitoring**: Real-time tracking of metrics ensures potential issues are identified and resolved swiftly.
+2. **SLA Compliance**: SLAs hold each system accountable for meeting performance and availability standards.
+3. **Enhanced Customer Experience**: Business metrics focus on customer satisfaction, availability, and efficiency, supporting a positive user experience.
+4. **Security and Compliance**: IDM metrics maintain the integrity and compliance of the system, ensuring secure and authorized access.
+
+These metrics support a robust framework for maintaining MES performance, operational efficiency, and compliance with regulatory standards.
+
+When considering **RBAC (Role-Based Access Control)** for access to the **System Health Dashboard (SHD)**, it is essential to balance broad access for transparency with restrictions that protect data integrity, security, and relevance. Below are recommendations and considerations based on these factors:
+
+---
+
+### **1. Should All Authorized MES Portal Users Be Given Access to the SHD?**
+
+**Recommendation**: **No, not all MES Portal users should be given access to the SHD.**
+
+**Justification**:
+- **Role Relevance**: The SHD contains detailed operational and performance data that may not be relevant or necessary for all MES Portal users. Granting access to the SHD should be limited to those whose roles require oversight of system health, performance, and compliance metrics.
+- **Data Security**: Limiting access reduces the risk of unauthorized data exposure, particularly for sensitive operational metrics or metrics related to security and compliance.
+- **User Experience**: Access to the SHD may overwhelm users who do not require this level of insight. Only users who need to monitor system performance, address incidents, or maintain compliance should have SHD access.
+
+**Proposed Access**:
+- **System Administrators, Compliance Auditors, and IT Operations**: Full access to the SHD to monitor all system metrics and ensure SLA compliance.
+- **Business Operations Leads**: Access limited to the metrics relevant to their areas, allowing them to monitor performance and address operational issues.
+- **Support Staff**: Limited or no access, as they primarily address end-user support issues and do not require full visibility into system health metrics.
+
+---
+
+### **2. Should MES Module Users Be Restricted to Seeing Business Metrics Related to Their Area?**
+
+**Recommendation**: **Yes, MES module users should be restricted to business metrics related to their specific area** (e.g., CARES users only seeing MFTS file transfers related to CARES).
+
+**Justification**:
+- **Relevance of Data**: Restricting metrics to specific areas ensures that users see only the information pertinent to their workflows. For example, users in the **CARES** module only need visibility into the file transfers and integrations that directly impact CARES operations.
+- **Data Confidentiality**: Restricting access protects sensitive information. For instance, **Provider Management (PM)** metrics may contain sensitive provider or payment data that does not need to be visible to users outside PM.
+- **Minimizing Cognitive Load**: Limiting visible metrics to only those relevant to a module helps users focus on the most important data without being distracted by metrics unrelated to their responsibilities.
+
+**Proposed Access**:
+- **Module-Specific Metrics**: Users should be able to view business metrics related only to their module (e.g., CARES, EDS, PM). For example:
+  - **CARES** users see MFTS file transfers related to CARES and SIP metrics for CARES integrations.
+  - **Provider Management** users view metrics related to provider data processing and service desk tickets specific to PM.
+- **Cross-Module Restrictions**: Only users with cross-module oversight roles (e.g., System Administrators, IT Operations Leads) should access metrics across multiple modules.
+  
+---
+
+### **RBAC Implementation for SHD Access**:
+
+1. **RBAC by User Role**:
+   - **System Administrators**: Full SHD access across all systems (SIP, MFTS, CCMS, IDM) for comprehensive monitoring and SLA management.
+   - **Compliance Auditors**: Access to metrics necessary for auditing and compliance purposes, restricted to data that aligns with regulatory requirements.
+   - **Business Operations Managers**: Access to business metrics specific to their modules (e.g., CARES, EDS) to monitor operational health.
+   - **Support and Helpdesk Staff**: Limited access focused on incident metrics and ticket resolution relevant to their roles.
+
+2. **RBAC by Module (e.g., CARES, PM)**:
+   - **Module-Specific Users**: Restricted to metrics directly impacting their specific areas.
+   - **Cross-Module Metrics**: Only users in cross-functional roles (e.g., high-level administrators or IT Operations) can view metrics across multiple modules, ensuring minimal access to sensitive, module-specific data.
+
+3. **Layered Access Levels**:
+   - **Full Access**: For roles like system administrators who need unrestricted access across the SHD.
+   - **Read-Only Access**: For roles like compliance auditors, restricted to view-only access without modifications.
+   - **Conditional Access Based on Need**: For support and operational roles, conditional access to view metrics and dashboards only as needed for their tasks.
+
+---
+
+### **Summary**
+
+Restricting SHD access based on **RBAC** ensures that users view only the metrics relevant to their roles and responsibilities within the MES, supporting security, compliance, and operational efficiency. By enforcing module-specific and role-based access, the SHD becomes a streamlined, secure tool that delivers actionable insights to the right users without compromising data security or overwhelming users with unnecessary information.
+
+The **System Health Dashboard (SHD)**, as outlined in the RFP, is expected to offer a **comprehensive view of the health and status of the vendor applications**, beyond just data and file transfer events. This broader scope aligns with the requirement that the **SI Contractor** work collaboratively to define the data reported through the SHD, including metrics that offer insights into **overall system performance, application health, and operational effectiveness**.
+
+### **1. Scope of SHD Metrics Beyond Data and File Transfer**
+
+While data and file transfer events are critical components of the SHD, they likely represent only a subset of the metrics required. The purpose of the SHD, as stated, is to enable **Business Operations to monitor MES conditions in near real-time**, which suggests a need for metrics that provide visibility into the **operational health of vendor applications**.
+
+This would encompass metrics across multiple categories, such as:
+   - **Application Performance**: Response times, uptime, error rates, transaction success rates.
+   - **System Health**: CPU, memory usage, disk I/O, network latency for infrastructure supporting vendor applications.
+   - **User Activity**: Login success rates, session durations, and user access patterns to identify and manage load.
+   - **Security Metrics**: Unauthorized access attempts, high-risk sign-ins, and multi-factor authentication (MFA) success rates.
+   - **Compliance and SLA Metrics**: Uptime SLAs, incident resolution times, and support ticket management, as per the agreed metrics with the agency.
+
+These types of metrics would help provide a **360-degree view** into not just data movements but the overall health and performance of the applications, ensuring operational continuity and SLA adherence.
+
+### **2. Agency Requirements for Vendor Module Metrics**
+
+If the SHD includes visibility into vendor application health, the **Agency** would need to instruct **Module Contractors** to provide a standardized set of metrics to ensure consistency, relevance, and real-time insights. The Agency’s instruction to Module Contractors could include the following **core metric requirements**:
+
+- **Application Uptime and Availability**: Percentage of time each vendor module is operational, with immediate reporting on outages or downtime.
+- **Response Time and Latency**: Metrics indicating the speed and efficiency of each application’s processing capabilities, particularly for high-priority tasks (e.g., eligibility processing in CARES).
+- **Error and Failure Rates**: Percentage of errors across critical functions (e.g., claims processing, eligibility determinations) to identify recurring issues and potential application instability.
+- **Data Processing and Throughput**: Volume of transactions or files processed by each vendor module, critical for applications handling large data volumes like EDS or MFTS.
+- **Incident Management and Resolution Times**: Metrics tracking the frequency, type, and resolution time of incidents within each module, ensuring Module Contractors meet response and recovery time SLAs.
+- **Security Metrics**: Monitoring unauthorized access attempts, MFA completion rates, and other security metrics essential to the integrity of vendor applications.
+
+### **3. Implications for Module Contractors**
+
+If the SHD is intended to monitor the health and performance of vendor applications, **Module Contractors** would need to:
+   - **Provide Real-Time Data Feeds**: Ensure that performance metrics, security events, and other relevant data are continuously fed into the SHD.
+   - **Standardize Metric Definitions and Formats**: Align with the SI Contractor and Agency’s guidelines on metric definitions, collection intervals, and reporting standards to facilitate cohesive and comparable insights across modules.
+   - **Implement SLAs for Data Reporting**: Meet specific SLAs regarding data availability, metric accuracy, and the timeliness of reports sent to the SHD.
+
+### **4. Summary of Expectations for the SHD**
+
+In summary, the SHD is expected to provide a **comprehensive line of sight into vendor applications' health and status**, not limited to data and file transfers alone. The **Agency’s directive to Module Contractors** should thus emphasize the need for a well-rounded set of metrics, covering application performance, operational health, security, and compliance. This approach ensures that the SHD fulfills its role as a **centralized operations dashboard**, empowering the Agency and Business Operations to respond to issues, enforce SLAs, and maintain high service standards across the MES environment.
+
 ![image](https://github.com/user-attachments/assets/bb0d2465-b74d-4bd6-8540-c6035fb240b7)
 
 
