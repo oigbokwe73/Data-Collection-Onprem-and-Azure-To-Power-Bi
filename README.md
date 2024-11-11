@@ -1,3 +1,7 @@
+![image](https://github.com/user-attachments/assets/bb0d2465-b74d-4bd6-8540-c6035fb240b7)
+
+
+
 
 Here’s a comparison of **Grafana** and **Power BI** in terms of features and supported use cases:
 
