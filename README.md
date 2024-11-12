@@ -847,6 +847,8 @@ The insights provided through this dashboard empower the business to maintain hi
 - **Description**: A brief explanation of what the metric represents or tracks, helping in interpreting the data.
 
 This table provides a comprehensive overview of the critical performance and operational metrics tracked by **Azure Monitor** across different Azure services. It is essential for monitoring, troubleshooting, and optimizing cloud resources.
+![image](https://github.com/user-attachments/assets/0e2fcba1-b4c5-495c-8a1a-dfa5723593e2)
+
 
 ![image](https://github.com/user-attachments/assets/7250f89b-1d0b-487d-bd31-251d3b5c82b3)
 
