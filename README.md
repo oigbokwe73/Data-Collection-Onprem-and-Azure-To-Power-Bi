@@ -1,3 +1,88 @@
+### **System Health Dashboard (SHD) Overview**
+
+The **System Health Dashboard (SHD)** is a centralized platform that provides real-time insights into the health, performance, and security of multiple interconnected systems within the Medicaid Enterprise System (MES) environment. It aggregates data from various systems, including **CARES (Centralized Alabama Receipt Eligibility System)**, **EDS (Enterprise Data Services)**, **Provider Management (PM)**, and **AMMIS/CPMS**, offering a consolidated view of operational metrics, SLA compliance, and key performance indicators.
+
+The SHD enables **Business Operations**, **System Administrators**, and **Compliance Auditors** to monitor MES activities effectively, respond to issues promptly, and ensure that service levels are consistently met. 
+
+---
+
+### **SHD Objectives**
+
+1. **Provide Visibility into System Health**: Deliver a consolidated view of MES system health, allowing stakeholders to monitor the real-time status of applications, data integration, infrastructure, and network health.
+2. **Ensure SLA Compliance**: Track SLA metrics to ensure MES services meet operational expectations, providing alerts when SLAs are breached.
+3. **Enable Proactive Issue Resolution**: Leverage real-time monitoring to quickly identify and respond to issues across the MES environment, reducing downtime and ensuring service continuity.
+4. **Support Compliance and Auditing**: Offer detailed logs and performance data, aiding compliance audits and tracking adherence to regulatory standards.
+5. **Empower Data-Driven Decision Making**: Facilitate analytics-based decision-making by providing key performance insights through visualizations, trends, and advanced analytics.
+
+---
+
+### **Types of Metrics Displayed on the SHD**
+
+The SHD displays a range of metrics across various categories, including **SLA compliance, operational performance, security, and infrastructure health**. Below are the primary types of metrics that can be displayed:
+
+| **Metric Category**     | **Metric Type**                                | **Description**                                                                                         |
+|-------------------------|------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| **SLA Compliance**      | **Uptime (%)**                                 | Measures the availability of each MES application/service, ensuring compliance with the 99.9% SLA target. |
+|                         | **Response Time (ms)**                         | Tracks average response times for applications and APIs; identifies latency issues affecting user experience. |
+|                         | **Resolution Time for Critical Issues**        | Measures the time taken to resolve high-priority incidents; ensures response times meet SLA commitments. |
+|                         | **Transaction Throughput**                     | Monitors the number of transactions processed per minute to ensure performance is within SLA limits.     |
+| **Operational Metrics** | **CPU and Memory Utilization (%)**             | Shows real-time CPU and memory usage for critical applications; ensures systems are not over-utilized.   |
+|                         | **Disk I/O (MBps)**                            | Tracks disk read and write speeds for applications, helping identify bottlenecks in data access/storage. |
+|                         | **Network Latency (ms)**                       | Monitors network latency to detect connectivity issues affecting application performance.                |
+|                         | **Data Transfer Volumes**                      | Measures the volume of data transferred across integrations; identifies potential bottlenecks in data flow. |
+| **Security Metrics**    | **Failed Login Attempts**                      | Displays number of failed logins for each system; identifies potential security threats or brute-force attacks. |
+|                         | **High-Risk User Sign-ins**                    | Tracks sign-ins flagged as high-risk by identity protection tools; enables proactive threat management.   |
+|                         | **Access Control Violations**                  | Logs unauthorized access attempts; essential for maintaining security and regulatory compliance.         |
+| **Incident Management** | **Open Tickets**                               | Shows the number of unresolved support tickets; identifies areas requiring immediate attention.          |
+|                         | **Ticket Resolution Time (hrs)**               | Measures average resolution time for support tickets; highlights efficiency in handling incidents.       |
+|                         | **Escalated Tickets**                          | Monitors percentage of escalated tickets, indicating complex or critical issues requiring additional resources. |
+
+---
+
+### **Access Method**
+
+The **System Health Dashboard (SHD)** is accessible through a **role-based access mechanism** integrated with the **MES Portal**. Authorized users can log in to the SHD through a secure web interface, leveraging **Azure Active Directory (Azure AD)** for authentication and multi-factor authentication (MFA) for additional security.
+
+- **Authentication**: Azure AD single sign-on (SSO) enables secure access for authorized personnel, ensuring compliance with organizational security standards.
+- **Role-Based Access Control (RBAC)**: Different user roles (e.g., System Administrators, Compliance Auditors, Business Operations) have tailored access to specific SHD features based on their responsibilities.
+- **User Interface (UI)**: The SHD UI is customizable, allowing users to filter, sort, and drill down into specific metrics. Visualizations include charts, tables, and gauges for real-time tracking and analysis.
+
+---
+
+### **Key Users of the SHD**
+
+1. **System Administrators**:
+   - **Role**: Responsible for maintaining system performance, handling configuration management, and monitoring the MES environment’s infrastructure.
+   - **Access Level**: Full access to all metrics, SLAs, and security alerts.
+   - **Key Uses**: Monitor system health, address infrastructure or application issues, and maintain uptime.
+
+2. **Business Operations**:
+   - **Role**: Ensures continuity of MES services and efficient handling of eligibility and claims processes.
+   - **Access Level**: Access to operational performance metrics, SLAs, and incident management data.
+   - **Key Uses**: Monitor application performance, resolve issues affecting business workflows, and track SLA compliance.
+
+3. **Compliance Auditors**:
+   - **Role**: Ensures that MES systems are compliant with regulatory requirements and internal policies.
+   - **Access Level**: Read-only access to SLA metrics, security logs, and compliance-related data.
+   - **Key Uses**: Audit system performance, track compliance with SLAs, and review security metrics to ensure adherence to regulatory standards.
+
+4. **Security and IT Operations**:
+   - **Role**: Monitors security metrics, access control, and threat detection data for MES systems.
+   - **Access Level**: Full access to security metrics and limited access to operational metrics.
+   - **Key Uses**: Proactively manage security incidents, monitor high-risk sign-ins, address unauthorized access attempts, and escalate issues.
+
+5. **Service Desk/Support Staff**:
+   - **Role**: Handles ticketing and issue resolution within the MES environment.
+   - **Access Level**: Access to incident management metrics, including open tickets and resolution times.
+   - **Key Uses**: Track and prioritize open tickets, ensure timely resolution of issues, and support end users.
+
+---
+
+### **Summary**
+
+The **System Health Dashboard** serves as a mission-critical tool, offering a comprehensive view of the MES ecosystem. Through real-time monitoring, SLA tracking, and security insights, the SHD empowers key users to maintain operational integrity, ensure compliance, and proactively address system performance issues. With role-based access, tailored data visualizations, and advanced analytics, the SHD helps maintain high standards of service quality and security across the MES.
+
+
 
 **Proposed Metrics by Area, SLAs, and Business Metrics**
 
