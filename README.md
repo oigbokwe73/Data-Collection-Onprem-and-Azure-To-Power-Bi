@@ -1,3 +1,8 @@
+
+
+![image](https://github.com/user-attachments/assets/5166e3d9-4e90-4006-957a-1a7b71dd41c1)
+
+
 Yes, **access to SLAs (Service Level Agreements) should generally be restricted** and provided only to specific roles and individuals who require it for operational, compliance, or decision-making purposes. SLAs often contain sensitive information related to performance targets, contractual obligations, response times, and other service requirements that may not be relevant—or suitable—for broader access across an organization.
 
 ### **Reasons to Restrict Access to SLAs**
