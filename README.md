@@ -113,8 +113,53 @@ Integrating Azure Entra ID (formerly Azure AD) with Power BI enables organizatio
 - **Improved Compliance**: Tracks metrics like MFA enablement rates and audit log completeness for regulatory adherence.
 - **Operational Efficiency**: Empowers IT teams with actionable insights to enhance system security and performance.
 
-This integration provides a comprehensive view of Azure Entra ID metrics, empowering organizations to manage identities and secure access with confidence.
+Below is a **Mermaid Diagram** illustrating the integration of **Azure Entra ID Logs** with **Log Analytics** and **Power BI**:
 
+```mermaid
+graph TD
+    A[Azure Entra ID] -->|Diagnostic Settings| B[Log Analytics Workspace]
+    B -->|KQL Queries| C[Power BI Desktop]
+    C -->|Data Transformation| D[Power BI Dashboard]
+    D -->|Published Reports| E[Power BI Service]
+    E -->|Role-Based Access| F[End Users]
+    F -->|Insights & Alerts| G[IT/Security Teams]
+    
+    B -->|Security Events| H[Azure Sentinel Integration]
+    A -->|Graph API| I[Custom Data Fetching for Power BI]
+```
+
+---
+
+### **Explanation of the Diagram**
+
+1. **Azure Entra ID**:
+   - Logs user activity, sign-ins, and provisioning events.
+   - Sends logs via **Diagnostic Settings** to **Log Analytics Workspace**.
+
+2. **Log Analytics Workspace**:
+   - Centralized log storage and querying with **KQL** (Kusto Query Language).
+   - Provides data for Power BI reports and integrates with tools like Azure Sentinel for advanced analytics.
+
+3. **Power BI Desktop**:
+   - Connects to Log Analytics using **Azure Monitor Logs**.
+   - Processes and transforms data with custom KQL queries.
+
+4. **Power BI Dashboard**:
+   - Visualizes key metrics like sign-ins, MFA events, and high-risk logins.
+   - Supports filters, slicers, and drill-down capabilities.
+
+5. **Power BI Service**:
+   - Publishes reports and schedules data refreshes.
+   - Implements role-based access for different teams.
+
+6. **End Users**:
+   - IT and Security teams access dashboards for monitoring and insights.
+
+7. **Additional Integrations**:
+   - **Azure Sentinel**: Provides security incident insights for advanced threat detection.
+   - **Microsoft Graph API**: Enables custom data fetching for reports.
+
+This diagram provides a clear flow of how Azure Entra logs are collected, analyzed, and visualized for organizational insights.
 
 
 ![image](https://github.com/user-attachments/assets/2ddfcaf1-0316-474d-946b-e2d030d17e2c)
