@@ -161,6 +161,7 @@ graph TD
 
 This diagram provides a clear flow of how Azure Entra logs are collected, analyzed, and visualized for organizational insights.
 
+![image](https://github.com/user-attachments/assets/a4c15ea4-2765-4547-a645-97812b13501c)
 
 ![image](https://github.com/user-attachments/assets/2ddfcaf1-0316-474d-946b-e2d030d17e2c)
 
