@@ -1952,6 +1952,7 @@ graph TD
     B --> E[Power BI]
     D --> E[Power BI]
     E --> F[Reports and Dashboards]
+    subgraph  
     G[Azure Storage] --> B
     G --> D
     end
