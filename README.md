@@ -2012,7 +2012,6 @@ graph TD
     B --> E[Power BI]
     D --> E[Power BI]
     E --> F[Reports and Dashboards]
-    subgraph Optional Resources
     G[Azure Storage] --> B
     G --> D
     end
