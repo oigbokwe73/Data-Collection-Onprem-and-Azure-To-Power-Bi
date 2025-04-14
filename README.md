@@ -1,3 +1,77 @@
+Absolutely! The `QuotaResources` table in Azure Monitor logs provides insights into resource utilization **against quota limits**, which is critical for detecting **capacity issues**, **scaling limits**, or impending throttling.
+
+Below is a **detailed KQL** that identifies any **quota resource** where the usage exceeds **85%** of the quota limit.
+
+---
+
+### ✅ **KQL: Identify Resources Exceeding 85% Quota Usage**
+
+```kql
+QuotaResources
+| where TimeGenerated > ago(1d)  // Look at the last 24 hours
+| extend UsagePercent = round((Usage / Limit) * 100, 2)
+| where UsagePercent >= 85
+| project 
+    TimeGenerated,
+    SubscriptionId,
+    ResourceGroup,
+    ResourceName,
+    ResourceType,
+    Provider,
+    QuotaName,
+    Usage,
+    Limit,
+    UsagePercent
+| order by UsagePercent desc
+```
+
+---
+
+### 🔍 Explanation:
+
+- **`Usage / Limit * 100`**: Calculates the percentage of the quota used.
+- **`round(..., 2)`**: Formats the percentage to 2 decimal places.
+- **`where UsagePercent >= 85`**: Filters only the resources nearing quota exhaustion.
+- **`project`**: Selects key fields to include in the output.
+- **`order by UsagePercent desc`**: Prioritizes the most critical quota limits at the top.
+
+---
+
+### 📈 Sample Output:
+
+| TimeGenerated       | SubscriptionId | ResourceGroup | ResourceName | ResourceType       | Provider         | QuotaName         | Usage | Limit | UsagePercent |
+|---------------------|----------------|---------------|--------------|--------------------|------------------|--------------------|--------|--------|----------------|
+| 2025-04-13 10:00:00 | sub-1234        | rg-prod        | vm-prod-east | Microsoft.Compute  | Microsoft.Compute | Standard_DS3_v2     | 17     | 20     | 85.00          |
+| 2025-04-13 10:00:00 | sub-1234        | rg-app         | appsvc-east  | Microsoft.Web      | Microsoft.Web     | App Service Plan    | 9.5    | 10     | 95.00          |
+
+---
+
+### 🧠 Optional Filters/Enhancements:
+
+- **Filter by specific quota type (e.g., cores, public IPs)**:
+  ```kql
+  | where QuotaName contains "cores"
+  ```
+
+- **Group by provider or region to find hotspots**:
+  ```kql
+  | summarize MaxUsage = max(UsagePercent) by Provider, Region
+  ```
+
+- **Monitor trends over time (e.g., by hour)**:
+  ```kql
+  | summarize AvgUsagePercent = avg((Usage / Limit) * 100) by QuotaName, bin(TimeGenerated, 1h)
+  ```
+
+- **Visualize it**:
+  ```kql
+  ... | render barchart
+  ```
+
+---
+
+Let me know if you'd like to **automate alerts** when usage exceeds a threshold, or visualize this with Power BI / Azure Workbooks!
+
 ### **Azure Entra ID Integration for Monitoring with Power BI**
 
 **Purpose**:  
