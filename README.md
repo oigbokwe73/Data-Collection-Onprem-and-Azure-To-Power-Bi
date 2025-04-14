@@ -1,3 +1,86 @@
+To query **incidents created, opened, and closed over time** using the **ServiceNow REST API**, you’ll need to make `GET` requests to the **Table API** (`/api/now/table/incident`) and filter by the appropriate date fields:
+
+---
+
+### 📅 Key Date Fields in ServiceNow's `incident` Table:
+
+| Field         | Meaning                                |
+|---------------|----------------------------------------|
+| `sys_created_on` | When the incident was **created**     |
+| `opened_at`       | When the incident was **opened**      |
+| `closed_at`       | When the incident was **closed**      |
+
+---
+
+### ✅ Prerequisites
+
+1. **ServiceNow Instance URL**
+2. **Credentials (Basic Auth or OAuth)**
+3. **REST Client** (Postman, cURL, or Python/PowerShell)
+
+---
+
+### 🧪 Sample API Calls
+
+#### 1. 🔍 Get Incidents Created in a Time Range
+```http
+GET https://<instance>.service-now.com/api/now/table/incident?sysparm_query=sys_created_onBETWEENjavascript:gs.dateGenerate('2024-04-01','00:00:00')@javascript:gs.dateGenerate('2024-04-14','23:59:59')
+```
+
+#### 2. 🔍 Get Incidents Opened in a Time Range
+```http
+GET https://<instance>.service-now.com/api/now/table/incident?sysparm_query=opened_atBETWEENjavascript:gs.dateGenerate('2024-04-01','00:00:00')@javascript:gs.dateGenerate('2024-04-14','23:59:59')
+```
+
+#### 3. 🔍 Get Incidents Closed in a Time Range
+```http
+GET https://<instance>.service-now.com/api/now/table/incident?sysparm_query=closed_atBETWEENjavascript:gs.dateGenerate('2024-04-01','00:00:00')@javascript:gs.dateGenerate('2024-04-14','23:59:59')
+```
+
+---
+
+### 🐍 Optional Python Example (Using `requests`)
+
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+
+url = "https://<instance>.service-now.com/api/now/table/incident"
+auth = HTTPBasicAuth('username', 'password')
+
+params = {
+    'sysparm_query': "sys_created_onBETWEENjavascript:gs.dateGenerate('2024-04-01','00:00:00')@javascript:gs.dateGenerate('2024-04-14','23:59:59')",
+    'sysparm_fields': 'number,sys_created_on,opened_at,closed_at',
+    'sysparm_limit': '100'
+}
+
+response = requests.get(url, auth=auth, params=params, headers={"Accept": "application/json"})
+data = response.json()
+
+for incident in data['result']:
+    print(f"{incident['number']} | Created: {incident['sys_created_on']} | Opened: {incident['opened_at']} | Closed: {incident['closed_at']}")
+```
+
+---
+
+### 📈 For Grouping Over Time (like daily counts)
+You will need to:
+- Pull the data via the API
+- Group/count them by day/week/month **in Power BI, Python, or Excel**, as ServiceNow’s REST API does not support time aggregation directly.
+
+---
+
+### 🔁 Tip: Reuse the `sysparm_query` Syntax with Other Fields:
+- `state=7` (closed)
+- `priority=1` (critical)
+- `assignment_group=your_group`
+
+Would you like me to help you:
+- Build a Power BI dashboard using this?
+- Or create time-series charts in Python or Excel from the API data?
+
+
+
 Absolutely! The `QuotaResources` table in Azure Monitor logs provides insights into resource utilization **against quota limits**, which is critical for detecting **capacity issues**, **scaling limits**, or impending throttling.
 
 Below is a **detailed KQL** that identifies any **quota resource** where the usage exceeds **85%** of the quota limit.
