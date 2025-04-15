@@ -1,3 +1,101 @@
+To query **Incidents** and **Problems** over time (created, opened, closed) with a rolling date window using the **ServiceNow REST API**, you can use the **Table API** with date filters and aggregation in your logic. ServiceNow does not directly support SQL-like "GROUP BY" over time in its API, so aggregation (like grouping per day/week/month) is usually handled client-side — but you can roll the time window using dynamic date queries.
+
+---
+
+### ✅ Step 1: Base API Structure
+
+Use the **Table API** for `incident` and `problem` tables:
+
+```
+GET /api/now/table/incident
+GET /api/now/table/problem
+```
+
+---
+
+### ✅ Step 2: Rolling Date Query – Created, Opened, Closed
+
+ServiceNow uses dynamic **encoded queries**. Here's how to filter by created, opened, or closed dates using relative time (e.g., last 7 days):
+
+#### 🔍 Examples:
+```http
+GET /api/now/table/incident?sysparm_query=sys_created_onONToday@javascript:gs.beginningOfToday()@javascript:gs.endOfToday()
+```
+
+```http
+GET /api/now/table/incident?sysparm_query=sys_created_on>=javascript:gs.daysAgoStart(7)^sys_created_on<=javascript:gs.endOfToday()
+```
+
+---
+
+### ✅ Step 3: Query Templates for Created, Opened, Closed
+
+| Type     | Query Field      | Example for Last 7 Days |
+|----------|------------------|--------------------------|
+| Created  | `sys_created_on` | `sys_created_on>=javascript:gs.daysAgoStart(7)` |
+| Opened   | `opened_at`      | `opened_at>=javascript:gs.daysAgoStart(7)` |
+| Closed   | `closed_at`      | `closed_at>=javascript:gs.daysAgoStart(7)` |
+
+---
+
+### ✅ Step 4: Example Script (Python + Requests)
+
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+from datetime import datetime, timedelta
+
+INSTANCE = 'your-instance'
+TABLE = 'incident'
+USER = 'your-username'
+PASSWORD = 'your-password'
+
+# Build a rolling 7-day window
+base_url = f"https://{INSTANCE}.service-now.com/api/now/table/{TABLE}"
+headers = {"Accept": "application/json"}
+
+# Dynamic query: incidents created in last 7 days
+query = "sys_created_on>=javascript:gs.daysAgoStart(7)^sys_created_on<=javascript:gs.endOfToday()"
+
+params = {
+    'sysparm_query': query,
+    'sysparm_fields': 'number,short_description,sys_created_on,state',
+    'sysparm_limit': '10000'
+}
+
+response = requests.get(base_url, auth=HTTPBasicAuth(USER, PASSWORD), headers=headers, params=params)
+
+data = response.json()
+for record in data.get('result', []):
+    print(record['number'], record['sys_created_on'], record['state'])
+```
+
+---
+
+### ✅ Step 5: Grouping by Day (Client-Side)
+
+After retrieving the data, group records by `sys_created_on`, `opened_at`, or `closed_at` (depending on the filter used) using Python's `pandas`, or aggregate in Power BI, Excel, etc.
+
+---
+
+### ✅ Optional: Use `sysparm_display_value=true` if you want readable values
+```http
+GET /api/now/table/incident?sysparm_display_value=true&sysparm_query=...
+```
+
+---
+
+### ✅ Step 6: Do this for the `problem` table too
+
+Just change the endpoint:
+```
+GET /api/now/table/problem?sysparm_query=...
+```
+
+---
+
+Would you like a version of this in Power BI (via Web API), or a chart-based aggregation using Python (grouped by day/week)?
+
 To query **incidents created, opened, and closed over time** using the **ServiceNow REST API**, you’ll need to make `GET` requests to the **Table API** (`/api/now/table/incident`) and filter by the appropriate date fields:
 
 ---
