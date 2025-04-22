@@ -1,3 +1,49 @@
+To calculate **uptime** for an **Azure Application Gateway (AGW)** using the `AzureDiagnostics` or `AGWAccessLogs` table (depending on how your logs are piped), the idea is to treat **presence of logs** (requests handled) as **"up"** and the **absence** of logs during a time window as **potential downtime**.
+
+Here’s a **Kusto Query** that calculates **uptime percentage** over the last 7 days by checking whether AGW was actively logging requests every 5-minute interval:
+
+---
+
+### ✅ **Kusto Query: Application Gateway Uptime using AGWAccessLogs**
+```kql
+let TimeWindow = 7d;
+let BinSize = 5m;
+let StartTime = now() - TimeWindow;
+let EndTime = now();
+let expected_bins = toscalar(
+    range ts from StartTime to EndTime step BinSize
+    | count
+);
+AGWAccessLogs
+| where TimeGenerated between (StartTime .. EndTime)
+| summarize bin_count = count() by bin(TimeGenerated, BinSize)
+| summarize active_bins = count()
+| extend total_bins = expected_bins
+| extend uptime_percentage = round((todouble(active_bins) / total_bins) * 100, 2)
+```
+
+---
+
+### 📊 Output:
+- `uptime_percentage`: Estimated % of time the Application Gateway was active and logging requests.
+- Based on **5-minute bins**, which you can adjust to `1m`, `10m`, etc.
+
+---
+
+### 🧠 Explanation:
+- Each bin represents a **5-minute window**.
+- If logs exist in that bin, the gateway is assumed to be **up**.
+- If **no logs** exist, the gateway might be **down**, **under maintenance**, or simply **not receiving traffic**.
+
+---
+
+### 🔍 Optional Enhancements:
+- Add `Resource` or `ResourceId` to filter specific AGWs.
+- Use a `timechart` to show uptime trend per day/hour.
+- Correlate with `Heartbeat` or `Metrics` for cross-validation.
+
+Would you like a version that includes a visual time-series (e.g., green/yellow/red indicator) or per-hour uptime breakdown?
+
 Here’s a **Kusto Query Language (KQL)** example to calculate **Azure Application Gateway uptime** using `Heartbeat` and `AzureDiagnostics` data:
 
 ---
