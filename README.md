@@ -1,3 +1,59 @@
+Here’s a **Kusto Query Language (KQL)** example to calculate **Azure Application Gateway uptime** using `Heartbeat` and `AzureDiagnostics` data:
+
+---
+
+### ✅ **Option 1: Based on Heartbeat (if App Gateway is VM-based with agents reporting)**
+
+```kql
+Heartbeat
+| where Resource == "<ApplicationGatewayName>"
+| where TimeGenerated > ago(7d)
+| summarize Heartbeats=count() by bin(TimeGenerated, 5m)
+| extend status = iff(Heartbeats > 0, "Up", "Down")
+| summarize
+    UpTimeMinutes = countif(status == "Up") * 5,
+    TotalMinutes = count() * 5,
+    UptimePercent = round(100.0 * countif(status == "Up") / count(), 2)
+```
+
+---
+
+### ✅ **Option 2: Using AzureDiagnostics with `ApplicationGatewayFirewallLog` or `ApplicationGatewayAccessLog`**
+
+```kql
+AzureDiagnostics
+| where ResourceType == "APPLICATIONGATEWAYS"
+| where Category in ("ApplicationGatewayAccessLog", "ApplicationGatewayFirewallLog")
+| where TimeGenerated > ago(7d)
+| summarize
+    LogsPer5Min = count() by bin(TimeGenerated, 5m)
+| extend status = iff(LogsPer5Min > 0, "Up", "Down")
+| summarize
+    UpTimeMinutes = countif(status == "Up") * 5,
+    TotalMinutes = count() * 5,
+    UptimePercent = round(100.0 * countif(status == "Up") / count(), 2)
+```
+
+---
+
+### ✅ **Optional Visualization (status chart)**
+
+```kql
+AzureDiagnostics
+| where ResourceType == "APPLICATIONGATEWAYS"
+| where Category == "ApplicationGatewayAccessLog"
+| where TimeGenerated > ago(7d)
+| summarize Events=count() by bin(TimeGenerated, 15m)
+| extend Status = iff(Events > 0, "Up", "Down")
+```
+
+You can visualize this in **Power BI** or **Workbook** as a time-series or status bar.
+
+---
+
+Would you like to add **maintenance windows** or **filter for specific instances** in the query?
+
+
 To query **Incidents** and **Problems** over time (created, opened, closed) with a rolling date window using the **ServiceNow REST API**, you can use the **Table API** with date filters and aggregation in your logic. ServiceNow does not directly support SQL-like "GROUP BY" over time in its API, so aggregation (like grouping per day/week/month) is usually handled client-side — but you can roll the time window using dynamic date queries.
 
 ---
